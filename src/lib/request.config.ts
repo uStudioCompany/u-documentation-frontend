@@ -12,6 +12,6 @@ export const getMarkdownFileConfig = (fileName: string): AxiosRequestConfig => (
   url: `${serviceUrl}/entries/${config.repo.owner}/${config.repo.name}/${fileName}.md`,
   params: {
     branch: config.repo.branch,
-    path: config.repo.path,
+    path: config.repo.docsFolder,
   },
 });
