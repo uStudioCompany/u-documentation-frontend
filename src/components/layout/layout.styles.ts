@@ -49,6 +49,8 @@ const LogoText = styled.span`
 
 const Main = styled.main`
   flex-grow: 1;
+
+  padding: var(--i-large);
 `;
 
 const Footer = styled.footer`

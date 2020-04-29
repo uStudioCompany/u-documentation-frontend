@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Flex from 'ustudio-ui/components/Flex';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
 
 import { Markdown } from '../../components/markdown';
-import { getMarkdownFile, kebabToHumanCase } from './docs.module';
+import { getMarkdownFile } from './docs.module';
 
 export const DocsPage: React.FC = () => {
   const { docName } = useParams();
@@ -14,28 +15,40 @@ export const DocsPage: React.FC = () => {
 
   const [source, setSource] = useState('');
 
-  useEffect(() => {
+  const getSource = useCallback(async (): Promise<void> => {
     setLoading(true);
 
-    if (isLoading) {
-      try {
-        const markdownFile = getMarkdownFile(kebabToHumanCase(docName));
+    try {
+      const markdownFile = await getMarkdownFile(docName);
 
-        setSource(markdownFile);
-      } catch ({ message: errorMessagee }) {
-        setError(errorMessagee);
-      } finally {
-        setLoading(false);
-      }
+      setSource(markdownFile);
+    } catch ({ message: errorMessagee }) {
+      setError(errorMessagee);
+    } finally {
+      setLoading(false);
+    }
+  }, [docName]);
+
+  useEffect(() => {
+    if (isLoading) {
+      getSource();
     }
   }, [isLoading]);
 
   if (isLoading) {
-    return <Spinner delay={500} appearance={{ size: 32 }} />;
+    return (
+      <Flex alignment={{ horizontal: 'center' }}>
+        <Spinner delay={500} appearance={{ size: 32 }} />
+      </Flex>
+    );
   }
 
   if (error) {
-    return <Text color="var(--c-negative)">{error}</Text>;
+    return (
+      <Text color="var(--c-negative)" align="center">
+        {`${error} ☹️`}
+      </Text>
+    );
   }
 
   return <Markdown source={source} />;
