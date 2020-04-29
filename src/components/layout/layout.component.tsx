@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import logo from '../../assets/images/logo.png';
 
 import Styled from './layout.styles';
+import { Aside } from './../aside';
 
 export const Layout: FC = ({ children }) => {
   return (
@@ -14,7 +15,10 @@ export const Layout: FC = ({ children }) => {
         </Styled.LogoLink>
       </Styled.Header>
 
-      <Styled.Main>{children}</Styled.Main>
+      <Styled.Main>
+        <Aside />
+        {children}
+      </Styled.Main>
 
       <Styled.Footer>
         © 2020{' '}

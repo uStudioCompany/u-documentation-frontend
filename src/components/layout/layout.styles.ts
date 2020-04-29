@@ -48,7 +48,9 @@ const LogoText = styled.span`
 `;
 
 const Main = styled.main`
+  display: flex;
   flex-grow: 1;
+  min-height: 100%;
 `;
 
 const Footer = styled.footer`
