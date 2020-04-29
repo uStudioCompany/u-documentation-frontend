@@ -27,13 +27,11 @@ export const DocsPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [docName]);
+  }, []);
 
-  useEffect(() => {
-    if (isLoading) {
-      getSource();
-    }
-  }, [isLoading]);
+  useEffect(function getSourceDataOnMount() {
+    getSource();
+  }, []);
 
   if (isLoading) {
     return (
