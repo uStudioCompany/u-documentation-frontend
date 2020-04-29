@@ -8,9 +8,9 @@
     "negative-light": "#fbab95"
   },
   "docsFolder": "docs",
-  "requestParams": {
+  "repo": {
     "owner": "BulbProject",
-    "repo": "bulb-project-frontend",
+    "name": "bulb-project-frontend",
     "branch": "develop",
     "path": "info"
   }
