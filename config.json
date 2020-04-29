@@ -7,5 +7,10 @@
     "negative": "#f69378",
     "negative-light": "#fbab95"
   },
-  "docsFolder": "docs"
+  "repo": {
+    "owner": "BulbProject",
+    "name": "bulb-project-frontend",
+    "branch": "develop",
+    "docsFolder": "info"
+  }
 }

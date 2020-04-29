@@ -35,9 +35,9 @@ const LogoLink = styled(Link)`
 `;
 
 const LogoImage = styled.img`
-  width: 2rem;
+  width: 1.5rem;
 
-  margin-right: var(--i-medium);
+  margin-right: var(--i-regular);
 `;
 
 const LogoText = styled.span`
@@ -50,6 +50,8 @@ const LogoText = styled.span`
 const Main = styled.main`
   display: flex;
   flex-grow: 1;
+
+  padding: var(--i-large);
   min-height: 100%;
 `;
 
