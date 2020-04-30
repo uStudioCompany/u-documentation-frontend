@@ -50,8 +50,6 @@ const LogoText = styled.span`
 const Main = styled.main`
   display: flex;
   flex-grow: 1;
-
-  padding: var(--i-large);
   min-height: 100%;
 `;
 

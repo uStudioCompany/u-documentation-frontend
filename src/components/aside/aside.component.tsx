@@ -1,53 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import { css } from 'styled-components';
 
 import Text from 'ustudio-ui/components/Text';
 import Dropdown from 'ustudio-ui/components/Dropdown';
 
 import Styled from './aside.styles';
-import { getMarkdownListConfig } from '../../request.config';
+import { getMarkdownListConfig } from '../../lib';
+
+interface Node {
+  name: string;
+  type: string;
+}
+
+interface NavListProps {
+  tree: Node[];
+  prevPath: string;
+}
+
+interface NavItemProps {
+  node: Node;
+  prevPath?: string;
+  isRoot?: true;
+}
 
 export const Aside = () => {
-  const [navigationTree, setNavigationTree] = useState([] as { name: string; type: string }[]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const requestFolder = async (path: string) => {
-    try {
-      const { data }: AxiosResponse<{ name: string; type: string }[]> = await axios(
-        getMarkdownListConfig('annisokay97', 'markdownRepo', path)
-      );
-
-      setNavigationTree(data);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getFolder = () => {
-    requestFolder('docs');
-  };
-
-  useEffect(() => {
-    getFolder();
-  }, []);
-
   return (
     <Styled.Aside direction="column">
-      <Text variant="h5">Documents</Text>
-      {!isLoading && navigationTree.length && <NavList tree={navigationTree} prevPath="docs" />}
+      <NavItem node={{ name: 'docs', type: 'tree' }} isRoot />
     </Styled.Aside>
   );
 };
 
-interface NavListProps {
-  tree: {
-    name: string;
-    type: string;
-  }[];
-  prevPath: string;
-}
 const NavList = (props: NavListProps) => {
   const { tree, prevPath } = props;
 
@@ -64,23 +48,16 @@ const NavList = (props: NavListProps) => {
   );
 };
 
-interface NavItemProps {
-  node: {
-    name: string;
-    type: string;
-  };
-  prevPath: string;
-}
 const NavItem = (props: NavItemProps) => {
-  const { node, prevPath } = props;
-  const [navigationTree, setNavigationTree] = useState([] as { name: string; type: string }[]);
+  const { node, prevPath, isRoot } = props;
+  const [navigationTree, setNavigationTree] = useState([] as Node[]);
+  const path = `${prevPath ? `${prevPath}/` : ''}${node.name}`;
 
-  const requestFolder = async () => {
+  const getFolder = async () => {
     if (!navigationTree.length) {
       try {
-        const { data }: AxiosResponse<{ name: string; type: string }[]> = await axios(
-          getMarkdownListConfig('annisokay97', 'markdownRepo', `${prevPath}/${node.name}`)
-        );
+        console.log(path);
+        const { data }: AxiosResponse<Node[]> = await axios(getMarkdownListConfig('annisokay97', 'markdownRepo', path));
 
         setNavigationTree(data);
       } catch (e) {
@@ -90,9 +67,36 @@ const NavItem = (props: NavItemProps) => {
     }
   };
 
+  useEffect(() => {
+    if (isRoot) {
+      getFolder();
+    }
+  }, []);
+
   return (
-    <Dropdown title={node.name} onChange={() => requestFolder()}>
-      {navigationTree.length && <NavList tree={navigationTree} prevPath={`${prevPath}/${node.name}`} />}
-    </Dropdown>
+    <Styled.NavItem>
+      {isRoot ? (
+        navigationTree.length && <NavList tree={navigationTree} prevPath={path} />
+      ) : (
+        <Dropdown
+          title={node.name}
+          onChange={() => getFolder()}
+          styled={{
+            DropdownContainer: css`
+              border: none;
+              box-shadow: none;
+            `,
+            Title: css`
+              padding: 0;
+            `,
+            Content: css`
+              padding: var(--i-medium);
+            `,
+          }}
+        >
+          {navigationTree.length && <NavList tree={navigationTree} prevPath={path} />}
+        </Dropdown>
+      )}
+    </Styled.NavItem>
   );
 };

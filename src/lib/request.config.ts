@@ -15,3 +15,12 @@ export const getMarkdownFileConfig = (fileName: string): AxiosRequestConfig => (
     path: config.repo.docsFolder,
   },
 });
+
+export const getMarkdownListConfig = (...[owner, repo, path]: [string, string, string]): AxiosRequestConfig => ({
+  method: 'get',
+  url: `${serviceUrl}/entries/${owner}/${repo}`,
+  params: {
+    branch: 'master',
+    path,
+  },
+});
