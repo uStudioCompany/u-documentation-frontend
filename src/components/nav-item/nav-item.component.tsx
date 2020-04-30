@@ -8,8 +8,8 @@ import { Node } from './../../types';
 
 import { NavList } from '../nav-list';
 
-import Styled from './nav-item.styles';
 import { getMarkdownList } from './nav-item.module';
+import Styled from './nav-item.styles';
 
 export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: string; isRoot?: true }) => {
   const [navigationTree, setNavigationTree] = useState([] as Node[]);

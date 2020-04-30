@@ -6,17 +6,17 @@ import Styled from './aside.styles';
 import { NavItem } from './../nav-item';
 
 export const Aside = ({
-  isDrawerOpen,
   setDrawerOpen,
+  isDrawerOpen,
   isMd,
 }: {
-  isDrawerOpen?: boolean;
   setDrawerOpen: (isOpen: boolean) => void;
+  isDrawerOpen?: boolean;
   isMd?: boolean;
 }) => {
   if (!isMd) {
     return (
-      <Styled.Drawer isOpen={!!isDrawerOpen} onChange={() => setDrawerOpen(false)} position="right">
+      <Styled.Drawer isOpen={!!isDrawerOpen} onChange={() => setDrawerOpen(false)}>
         <NavItem node={{ name: config.repo.docsFolder, type: 'tree' }} isRoot />
       </Styled.Drawer>
     );

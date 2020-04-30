@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import Flex from 'ustudio-ui/components/Flex';
 import LibDrawer from 'ustudio-ui/components/Drawer';
 
@@ -13,9 +14,6 @@ const Aside = styled(Flex)`
 
   overflow: scroll;
   z-index: var(--l-top);
-
-  background-color: var(--c-lightest);
-  color: var(--c-darkest);
 `;
 
 const Drawer = styled(LibDrawer)`

@@ -4,8 +4,9 @@ import useMediaQuery from 'ustudio-ui/hooks/use-media-query';
 import Flex from 'ustudio-ui/components/Flex';
 
 import logo from '../../assets/images/logo.svg';
-import Styled from './layout.styles';
+
 import { Aside } from './../aside';
+import Styled from './layout.styles';
 
 export const Layout: FC = ({ children }) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -25,6 +26,7 @@ export const Layout: FC = ({ children }) => {
 
       <Styled.Main>
         <Aside isMd={isMd} setDrawerOpen={setDrawerOpen} isDrawerOpen={isDrawerOpen} />
+
         <Flex padding={{ left: 'large', right: 'large' }}>{children}</Flex>
       </Styled.Main>
 
