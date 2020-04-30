@@ -29,9 +29,12 @@ export const DocsPage: React.FC = () => {
     }
   }, []);
 
-  useEffect(function getSourceDataOnMount() {
-    getSource();
-  }, []);
+  useEffect(
+    function getSourceDataOnMount() {
+      getSource();
+    },
+    [path, docName]
+  );
 
   if (isLoading) {
     return (
