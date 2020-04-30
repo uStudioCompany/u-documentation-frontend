@@ -176,17 +176,21 @@ const DrawerButton = styled.button(
   `
 );
 
-const Main = styled.main`
-  min-height: 100%;
+const Main = styled.main(
+  ({ isDocPage }: { isDocPage: boolean }) => css`
+    min-height: 100%;
 
-  display: flex;
-  flex-grow: 1;
+    display: flex;
+    flex-grow: 1;
 
-  ${Mixin.Screen.md(css`
-    width: calc(100vw - 320px);
-    margin-left: auto;
-  `)}
-`;
+    ${isDocPage
+      ? Mixin.Screen.md(css`
+          width: calc(100vw - 320px);
+          margin-left: auto;
+        `)
+      : ''}
+  `
+);
 
 const Footer = styled.footer`
   padding: var(--i-small) 0;
