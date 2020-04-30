@@ -25,7 +25,7 @@ export const NavList = ({ tree, prevPath, isLoading }: { tree: Node[]; prevPath:
         node.type === 'tree' ? (
           <NavItem key={node.name} node={node} prevPath={prevPath} />
         ) : (
-          <Link to={`/docs/${parseDocName(node.name)}`} key={node.name}>
+          <Link to={`/${prevPath}/${parseDocName(node.name)}`} key={node.name}>
             {parseDocName(node.name)}
           </Link>
         )
