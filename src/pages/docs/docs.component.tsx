@@ -8,7 +8,6 @@ import { Markdown } from '../../components/markdown';
 import { getMarkdownFile } from './docs.module';
 
 export const DocsPage: React.FC = () => {
-  console.log(23)
   const { docName } = useParams();
 
   const [isLoading, setLoading] = useState(true);

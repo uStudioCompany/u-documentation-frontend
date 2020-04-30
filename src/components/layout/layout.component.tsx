@@ -1,11 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+
+import useMediaQuery from 'ustudio-ui/hooks/use-media-query';
+import Flex from 'ustudio-ui/components/Flex';
 
 import logo from '../../assets/images/logo.svg';
-
 import Styled from './layout.styles';
 import { Aside } from './../aside';
 
 export const Layout: FC = ({ children }) => {
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  const isMd = useMediaQuery('screen and (min-width: 768px)');
+
   return (
     <Styled.Layout>
       <Styled.Header>
@@ -13,11 +19,13 @@ export const Layout: FC = ({ children }) => {
           <Styled.LogoImage src={logo} alt="uDocumentation Logo" />
           <Styled.LogoText>uDocumentation</Styled.LogoText>
         </Styled.LogoLink>
+
+        {!isMd && <Styled.DrawerButton drawerIsOpen={isDrawerOpen} onClick={() => setDrawerOpen(!isDrawerOpen)} />}
       </Styled.Header>
 
       <Styled.Main>
-        <Aside />
-        {children}
+        <Aside isMd={isMd} setDrawerOpen={setDrawerOpen} isDrawerOpen={isDrawerOpen} />
+        <Flex padding={{ left: 'large', right: 'large' }}>{children}</Flex>
       </Styled.Main>
 
       <Styled.Footer>

@@ -1,21 +1,29 @@
 import styled from 'styled-components';
 import Flex from 'ustudio-ui/components/Flex';
+import LibDrawer from 'ustudio-ui/components/Drawer';
 
 const Aside = styled(Flex)`
-  z-index: var(--l-top);
-  overflow-y: scroll;
+  width: 320px;
+  min-height: 100%;
+
   padding: var(--i-regular);
-  background-color: var(--c-lightest);
-  color: var(--c-darkest);
+
   border-right: 1px solid var(--c-light);
   border-radius: 0;
-  width: auto;
-  min-height: 100%;
-  max-width: 30%;
+
+  overflow: scroll;
+  z-index: var(--l-top);
+
+  background-color: var(--c-lightest);
+  color: var(--c-darkest);
 `;
 
-const NavItem = styled.div`
-  padding: var(--i-medium) 0;
+const Drawer = styled(LibDrawer)`
+  width: 320px;
+
+  flex-direction: column;
+
+  padding: var(--i-large);
 `;
 
-export default { Aside, NavItem };
+export default { Aside, Drawer };
