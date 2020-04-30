@@ -9,9 +9,5 @@ const serviceUrl = `${serviceProtocol}://${serviceAddress}${servicePort ? `:${se
 
 export const getMarkdownFileConfig = (fileName: string): AxiosRequestConfig => ({
   method: 'get',
-  url: `${serviceUrl}/entries/${config.repo.owner}/${config.repo.name}/${fileName}.md`,
-  params: {
-    branch: config.repo.branch,
-    path: config.repo.docsFolder,
-  },
+  url: `${serviceUrl}/entries/${config.repo.owner}/${config.repo.name}/${config.repo.branch}/${config.repo.docsFolder}/${fileName}.md`,
 });
