@@ -8,7 +8,7 @@ import { Markdown } from '../../components/markdown';
 import { getMarkdownFile } from './docs.module';
 
 export const DocsPage: React.FC = () => {
-  const { docName } = useParams();
+  const { path, docName } = useParams();
 
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +19,7 @@ export const DocsPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const markdownFile = await getMarkdownFile(docName);
+      const markdownFile = await getMarkdownFile(`${path ? `${path}/` : ''}${docName}`);
 
       setSource(markdownFile);
     } catch ({ message: errorMessagee }) {
