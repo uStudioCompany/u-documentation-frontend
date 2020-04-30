@@ -18,5 +18,5 @@ export const getMarkdownDocumentConfig = ({
 
 export const getMarkdownListConfig = (...[path]: [string]): AxiosRequestConfig => ({
   method: 'get',
-  url: `${serviceUrl}/entries/${config.repo.owner}/${config.repo.name}/${config.repo.branch}/${path.split('/').join('%2F')}`,
+  url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${path.split('/').join('%2F')}`,
 });
