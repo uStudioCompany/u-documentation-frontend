@@ -1,12 +1,18 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, createContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import useMediaQuery from 'ustudio-ui/hooks/use-media-query';
 import Flex from 'ustudio-ui/components/Flex';
 
 import logo from '../../assets/images/logo.svg';
 
-import { Aside } from './../aside';
+import { Aside } from '../aside';
+
 import Styled from './layout.styles';
+
+import { name, repo } from '../../../config.json';
+
+export const DrawerState = createContext(() => {});
 
 export const Layout: FC = ({ children }) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -14,29 +20,39 @@ export const Layout: FC = ({ children }) => {
   const isMd = useMediaQuery('screen and (min-width: 768px)');
 
   return (
-    <Styled.Layout>
-      <Styled.Header>
-        <Styled.LogoLink to="/">
-          <Styled.LogoImage src={logo} alt="uDocumentation Logo" />
-          <Styled.LogoText>uDocumentation</Styled.LogoText>
-        </Styled.LogoLink>
+    <DrawerState.Provider value={() => setDrawerOpen(false)}>
+      <Styled.Layout>
+        <Styled.Header>
+          <Styled.LogoLink to="/">
+            <Styled.LogoImage src={logo} alt={`${name} Logo`} />
+            <Styled.LogoText>{name}</Styled.LogoText>
+          </Styled.LogoLink>
 
-        {!isMd && <Styled.DrawerButton drawerIsOpen={isDrawerOpen} onClick={() => setDrawerOpen(!isDrawerOpen)} />}
-      </Styled.Header>
+          <Styled.Nav>
+            <Link to="/docs">Docs</Link>
 
-      <Styled.Main>
-        <Aside isMd={isMd} setDrawerOpen={setDrawerOpen} isDrawerOpen={isDrawerOpen} />
+            <a href={`https://github.com/${repo.owner}/${repo.name}`} target="_blank" rel="noopener noreferrer">
+              Github
+            </a>
+          </Styled.Nav>
 
-        <Flex padding={{ left: 'large', right: 'large' }}>{children}</Flex>
-      </Styled.Main>
+          {!isMd && <Styled.DrawerButton drawerIsOpen={isDrawerOpen} onClick={() => setDrawerOpen(!isDrawerOpen)} />}
+        </Styled.Header>
 
-      <Styled.Footer>
-        © 2020{' '}
-        <a href="https://ustudio.company" target="_blank" rel="noreferrer noopener">
-          uStudio LLC
-        </a>{' '}
-        ❤️
-      </Styled.Footer>
-    </Styled.Layout>
+        <Styled.Main>
+          <Aside isMd={isMd} setDrawerOpen={setDrawerOpen} isDrawerOpen={isDrawerOpen} />
+
+          <Flex padding={{ left: 'large', right: 'large' }}>{children}</Flex>
+        </Styled.Main>
+
+        <Styled.Footer>
+          © 2020{' '}
+          <a href="https://ustudio.company" target="_blank" rel="noreferrer noopener">
+            uStudio LLC
+          </a>{' '}
+          ❤️
+        </Styled.Footer>
+      </Styled.Layout>
+    </DrawerState.Provider>
   );
 };

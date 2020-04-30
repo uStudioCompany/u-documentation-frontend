@@ -1,9 +1,13 @@
 import React from 'react';
 
+import Flex from 'ustudio-ui/components/Flex';
+import Text from 'ustudio-ui/components/Text';
+
 import { repo } from '../../../config.json';
 
+import { NavItem } from '../nav-item';
+
 import Styled from './aside.styles';
-import { NavItem } from './../nav-item';
 
 export const Aside = ({
   setDrawerOpen,
@@ -16,7 +20,11 @@ export const Aside = ({
 }) => {
   if (!isMd) {
     return (
-      <Styled.Drawer isOpen={isDrawerOpen} onChange={() => setDrawerOpen(false)}>
+      <Styled.Drawer isOpen={isDrawerOpen} onChange={() => setDrawerOpen(false)} showOverlay>
+        <Flex margin={{ bottom: 'regular' }}>
+          <Text variant="h3">Resources</Text>
+        </Flex>
+
         <NavItem node={{ name: repo.docsFolder, type: 'tree' }} isRoot />
       </Styled.Drawer>
     );
@@ -24,6 +32,10 @@ export const Aside = ({
 
   return (
     <Styled.Aside direction="column">
+      <Flex margin={{ bottom: 'regular' }}>
+        <Text variant="h3">Resources</Text>
+      </Flex>
+
       <NavItem node={{ name: repo.docsFolder, type: 'tree' }} isRoot />
     </Styled.Aside>
   );

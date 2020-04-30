@@ -4,11 +4,11 @@ import { css } from 'styled-components';
 import Text from 'ustudio-ui/components/Text';
 import Dropdown from 'ustudio-ui/components/Dropdown';
 
-import { Node } from './../../types';
+import type { Node } from '../../types';
 
 import { NavList } from '../nav-list';
 
-import { getMarkdownList } from './nav-item.module';
+import { getEntries } from './nav-item.module';
 import Styled from './nav-item.styles';
 
 export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: string; isRoot?: true }) => {
@@ -24,9 +24,9 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
       setLoading(true);
 
       try {
-        const fileTree = await getMarkdownList(path);
+        const entries = await getEntries(path);
 
-        setNavigationTree(fileTree);
+        setNavigationTree(entries);
       } catch ({ message: errorMessage }) {
         setError(errorMessage);
       } finally {
@@ -58,6 +58,7 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
           title={node.name}
           onChange={getFolder}
           styled={{
+            // @ts-ignore Bug in uStudio UI types for styled prop
             DropdownContainer: css`
               border: none;
               box-shadow: none;
@@ -67,12 +68,11 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
             `,
             Title: css`
               padding: 0;
+
+              font-weight: 600;
             `,
             Content: css`
               padding: var(--i-medium) 0 var(--i-medium) var(--i-medium);
-            `,
-            Dropdown: css`
-              overflow: visible;
             `,
           }}
         >

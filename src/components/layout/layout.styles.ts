@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styled, {css, keyframes} from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import { Mixin } from 'ustudio-ui/theme';
 
@@ -9,17 +9,24 @@ const Layout = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  padding-top: 64px;
 `;
 
 const Header = styled.header`
+  position: fixed;
+  top: 0;
+  z-index: 10;
+
+  width: 100%;
   height: 64px;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   padding: var(--i-regular) var(--i-large);
 
+  background-color: var(--c-primary);
   box-shadow: var(--s-light);
 `;
 
@@ -28,6 +35,8 @@ const LogoLink = styled(Link)`
 
   display: flex;
   align-items: center;
+
+  margin-right: auto;
 
   &:after {
     content: none;
@@ -41,10 +50,26 @@ const LogoImage = styled.img`
 `;
 
 const LogoText = styled.span`
-  ${Mixin.Font.h3()};
+  display: none;
 
-  color: var(--c-darkest);
-  user-select: none;
+  ${Mixin.Screen.md(css`
+    display: inherit;
+
+    ${Mixin.Font.h3()};
+
+    line-height: 1;
+
+    color: var(--c-darkest);
+    user-select: none;
+  `)}
+`;
+
+const Nav = styled.nav`
+  a {
+    margin: 0 var(--i-regular);
+
+    color: currentColor;
+  }
 `;
 
 const OpenDrawerButtonAnimation = keyframes`
@@ -96,10 +121,10 @@ const DrawerButton = styled.button(
 
     background-image: linear-gradient(
       to bottom,
-      var(--c-lightest) calc(50% - 1px),
+      var(--c-primary) calc(50% - 1px),
       var(--c-darkest) calc(50% - 1px),
       var(--c-darkest) calc(50% + 1px),
-      var(--c-lightest) calc(50% + 1px)
+      var(--c-primary) calc(50% + 1px)
     );
     background-repeat: no-repeat;
     background-position-x: 0;
@@ -152,9 +177,15 @@ const DrawerButton = styled.button(
 );
 
 const Main = styled.main`
+  min-height: 100%;
+
   display: flex;
   flex-grow: 1;
-  min-height: 100%;
+
+  ${Mixin.Screen.md(css`
+    width: calc(100vw - 320px);
+    margin-left: auto;
+  `)}
 `;
 
 const Footer = styled.footer`
@@ -172,6 +203,7 @@ export default {
   LogoLink,
   LogoImage,
   LogoText,
+  Nav,
   DrawerButton,
   Main,
   Footer,

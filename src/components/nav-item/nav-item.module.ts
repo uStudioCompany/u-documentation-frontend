@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-import { getMarkdownListConfig } from '../../lib';
-import { Node } from '../../types';
+import { getEntriesConfig } from '../../lib';
+import type { Node } from '../../types';
 
-export const getMarkdownList = async (path: string): Promise<Node[]> => {
-  const { data } = await axios(getMarkdownListConfig(path));
+export const getEntries = async (path: string): Promise<Node[]> => {
+  const { data } = await axios(getEntriesConfig(path));
 
   return data;
 };
