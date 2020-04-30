@@ -36,7 +36,10 @@ const queryEngine = (data: string[][], queryString: string) => {
   }
 
   let newData = /r/.test(normalizedQueryString) ? [] : data;
-  const queryGroups = normalizedQueryString.replace(/\?/, '').split('&');
+  const queryGroups = normalizedQueryString
+    .replace(/\?/, '')
+    .split('&')
+    .sort((group) => (group[0] === 'c' ? 1 : -1));
 
   queryGroups.forEach((queryGroup) => {
     if (queryGroup[0] === 'r') {
@@ -65,7 +68,7 @@ const queryEngine = (data: string[][], queryString: string) => {
 
 export const csvFilter = ({ csvString, queryString = '' }: { csvString: string; queryString?: string }): string => {
   if (typeof csvString !== 'string') {
-    throw new Error('CSV string not transferred as argument or it type is not "string"');
+    throw new TypeError('CSV string not transferred as argument or it type is not "string"');
   }
 
   const normalizedCsvString = csvString.replace(/,(?=([^"]*"[^"]*")*[^"]*$)/gm, ';');
