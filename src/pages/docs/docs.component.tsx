@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import Flex from 'ustudio-ui/components/Flex';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
 
+import { getMarkdownDocument } from './docs.module';
 import { Markdown } from '../../components/markdown';
-import { getMarkdownFile } from './docs.module';
 
 export const DocsPage: React.FC = () => {
   const { path, docName } = useParams();
@@ -19,11 +20,14 @@ export const DocsPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const markdownFile = await getMarkdownFile(`${path ? `%2F${path.split('/').join('%2F')}` : ''}/${docName}`);
+      const markdownFile = await getMarkdownDocument({
+        path: `${(path || '').replace(/\//g, '%2F')}`,
+        docName,
+      });
 
       setSource(markdownFile);
-    } catch ({ message: errorMessagee }) {
-      setError(errorMessagee);
+    } catch ({ message: errorMessage }) {
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
