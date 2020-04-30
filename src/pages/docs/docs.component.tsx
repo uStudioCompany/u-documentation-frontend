@@ -19,7 +19,7 @@ export const DocsPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const markdownFile = await getMarkdownFile(`${path ? `${path}/` : ''}${docName}`);
+      const markdownFile = await getMarkdownFile(`${path ? `${path.split('/').join('%2F')}%2F` : ''}${docName}`);
 
       setSource(markdownFile);
     } catch ({ message: errorMessagee }) {
