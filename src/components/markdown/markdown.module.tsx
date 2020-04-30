@@ -1,5 +1,6 @@
 import React from 'react';
 import { Renderers } from 'react-markdown';
+import { CSV } from '../csv';
 /* import Code from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism'; */
 
@@ -33,5 +34,11 @@ export const renderers: Renderers = {
       {children}
     </Styled.List>
   ),
-  link: Styled.Link,
+  link: ({ href, children }: { href: string; children: string }) => {
+    if (/^\/csv.+\.csv/.test(href)) {
+      return <CSV query={href} />;
+    }
+
+    return <Styled.Link href={href}>{children}</Styled.Link>;
+  },
 };
