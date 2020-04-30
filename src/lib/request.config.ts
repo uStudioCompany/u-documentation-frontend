@@ -13,5 +13,7 @@ export const getMarkdownDocumentConfig = ({
   docName: string;
 }): AxiosRequestConfig => ({
   method: 'get',
-  url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${encodeURI(docsFolder)}${path ? `%2F${path}`: ''}/${docName}.md`,
+  url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${encodeURI(docsFolder)}${
+    path ? `%2F${path}` : ''
+  }/${docName}.md`,
 });
