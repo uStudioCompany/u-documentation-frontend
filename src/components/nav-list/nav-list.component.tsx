@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import Flex from 'ustudio-ui/components/Flex';
@@ -21,15 +21,17 @@ export const NavList = ({ tree, prevPath, isLoading }: { tree: Node[]; prevPath:
 
   return (
     <>
-      {tree?.map((node) =>
-        node.type === 'tree' ? (
+      {tree?.map((node) => {
+        const parsedDocName = useMemo(() => parseDocName(node.name), [node]);
+
+        return node.type === 'tree' ? (
           <NavItem key={node.name} node={node} prevPath={prevPath} />
         ) : (
-          <Link to={`/${prevPath}/${parseDocName(node.name)}`} key={node.name}>
-            {parseDocName(node.name)}
+          <Link to={`/${prevPath}/${parsedDocName}`} key={node.name}>
+            {parsedDocName}
           </Link>
-        )
-      )}
+        );
+      })}
     </>
   );
 };

@@ -22,6 +22,7 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
   const getFolder = async () => {
     if (!navigationTree.length) {
       setLoading(true);
+
       try {
         const fileTree = await getMarkdownList(path);
 
@@ -34,7 +35,7 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
     }
   };
 
-  useEffect(() => {
+  useEffect(function getFolderOnMount() {
     if (isRoot) {
       getFolder();
     }
@@ -55,7 +56,7 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
       ) : (
         <Dropdown
           title={node.name}
-          onChange={() => getFolder()}
+          onChange={getFolder}
           styled={{
             DropdownContainer: css`
               border: none;

@@ -11,12 +11,12 @@ export const Aside = ({
   isMd,
 }: {
   setDrawerOpen: (isOpen: boolean) => void;
-  isDrawerOpen?: boolean;
+  isDrawerOpen: boolean;
   isMd?: boolean;
 }) => {
   if (!isMd) {
     return (
-      <Styled.Drawer isOpen={!!isDrawerOpen} onChange={() => setDrawerOpen(false)}>
+      <Styled.Drawer isOpen={isDrawerOpen} onChange={() => setDrawerOpen(false)}>
         <NavItem node={{ name: repo.docsFolder, type: 'tree' }} isRoot />
       </Styled.Drawer>
     );
