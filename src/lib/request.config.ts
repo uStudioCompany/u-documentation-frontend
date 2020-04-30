@@ -1,19 +1,19 @@
 import { AxiosRequestConfig } from 'axios';
 
-import config from '../config.json';
+import { repo } from '../../config.json';
 
-const serviceProtocol = 'http';
-const serviceAddress = '185.25.116.133';
-const servicePort = 3535;
-const serviceUrl = `${serviceProtocol}://${serviceAddress}${servicePort ? `:${servicePort}` : ''}`;
+const { owner, name, branch, docsFolder } = repo;
+const serviceUrl = `http://185.25.116.133:3535`;
 
-export const getMarkdownFileConfig = (fileName: string): AxiosRequestConfig => ({
+export const getMarkdownDocumentConfig = ({
+  path,
+  docName,
+}: {
+  path: string;
+  docName: string;
+}): AxiosRequestConfig => ({
   method: 'get',
-  url: `${serviceUrl}/entries/${config.repo.owner}/${config.repo.name}/${fileName}.md`,
-  params: {
-    branch: config.repo.branch,
-    path: config.repo.docsFolder,
-  },
+  url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${encodeURI(docsFolder)}${path ? `%2F${path}`: ''}/${docName}.md`,
 });
 
 export const getMarkdownListConfig = (...[path]: [string]): AxiosRequestConfig => ({
