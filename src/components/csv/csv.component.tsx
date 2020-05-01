@@ -11,18 +11,15 @@ import { CSVProps } from './csv.types';
 
 import './csv.module.scss';
 
-export const CSV: React.FC<CSVProps> = ({ href }) => {
+export const CSV: React.FC<CSVProps> = ({ href, title }) => {
   const [isLoading, setLoading] = useState(false);
   const [source, setSouce] = useState<string>('');
   const [error, setError] = useState<null | string>(null);
 
-  const [title, setTitle] = useState('');
   const [meta, setMeta] = useState<{ rows?: string; cols?: string } | null>(null);
 
   useEffect(() => {
     if (href) {
-      setTitle(getDocPropsFromHref(href).docName);
-
       const query = getQueryFromHref(href);
 
       const matchQuery = (param: 'c' | 'r'): [string] | null => {
@@ -82,18 +79,23 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
 
   return (
     <Flex direction="column" margin={{ top: 'regular' }}>
-      <Text variant="h3">{title}</Text>
-      {meta?.rows && (
-        <Text variant="small" color="var(--c-dark)">
-          {meta.rows} rows
-        </Text>
-      )}
+      {title && <Text variant="h3">{title}</Text>}
 
-      {meta?.cols && (
-        <Text variant="small" color="var(--c-dark)">
-          {', '}
-          {meta.cols} cols
-        </Text>
+      {meta && (
+        <Flex margin={{ top: 'small' }}>
+          {meta?.rows && (
+            <Text variant="small" color="var(--c-dark)">
+              {meta.rows} rows
+            </Text>
+          )}
+
+          {meta?.cols && (
+            <Text variant="small" color="var(--c-dark)">
+              {', '}
+              {meta.cols} cols
+            </Text>
+          )}
+        </Flex>
       )}
 
       <div className="table-wrapper">

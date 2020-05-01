@@ -35,9 +35,9 @@ export const renderers: Renderers = {
       {children}
     </Styled.List>
   ),
-  link: ({ href, children }: { href: string; children: string }) => {
+  link: ({ href, children, title }: { href: string; children: string; title?: string }) => {
     if (/^.+\.csv/.test(href)) {
-      return <CSV href={href} />;
+      return <CSV href={href} title={title} />;
     }
 
     return <Styled.Link href={href}>{children}</Styled.Link>;
