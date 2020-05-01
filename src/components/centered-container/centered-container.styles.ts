@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-const CenteredContainer = styled.div`
+import Flex from 'ustudio-ui/components/Flex';
+
+const CenteredContainer = styled(Flex)`
   position: fixed;
   top: 0;
   left: 0;
