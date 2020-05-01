@@ -7,7 +7,7 @@ import { CSVProps } from './csv.types';
 
 export const CSV: React.FC<CSVProps> = ({ href }) => {
   const [isLoading, setLoading] = useState(false);
-  const [source, setSouce] = useState<string>([]);
+  const [source, setSouce] = useState<string>('');
   const [error, setError] = useState<null | string>(null);
 
   const getCsvSource = useCallback(async () => {
@@ -36,7 +36,7 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
       <Text color="var(--c-negative)">
         This table was unable to load{' '}
         <span role="img" aria-label=":(">
-          ☹
+          ☹️
         </span>
       </Text>
     );
