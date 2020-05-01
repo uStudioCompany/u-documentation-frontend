@@ -3,6 +3,8 @@ import styled, { css, keyframes } from 'styled-components';
 
 import { Mixin } from 'ustudio-ui/theme';
 
+const asideWidth = '320px';
+
 const Layout = styled.div`
   height: 100%;
   min-height: 100vh;
@@ -104,8 +106,8 @@ const CloseDrawerButtonAnimation = keyframes`
   }
 `;
 
-const DrawerButton = styled.button(
-  ({ drawerIsOpen }: { drawerIsOpen: boolean }) => css`
+const DrawerButton = styled.button<{ drawerIsOpen: boolean }>(
+  ({ drawerIsOpen }) => css`
     --delay: calc(var(--transition) * 2);
 
     width: 2rem;
@@ -176,8 +178,8 @@ const DrawerButton = styled.button(
   `
 );
 
-const Main = styled.main(
-  ({ isDocPage }: { isDocPage: boolean }) => css`
+const Main = styled.main<{ isDocPage: boolean }>(
+  ({ isDocPage }) => css`
     min-height: 100%;
 
     display: flex;
@@ -185,7 +187,7 @@ const Main = styled.main(
 
     ${isDocPage
       ? Mixin.Screen.md(css`
-          width: calc(100vw - 320px);
+          width: calc(100vw - ${asideWidth});
           margin-left: auto;
         `)
       : ''}

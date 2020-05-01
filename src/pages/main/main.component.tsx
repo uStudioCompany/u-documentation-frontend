@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import Grid from 'ustudio-ui/components/Grid/Grid';
 import Cell from 'ustudio-ui/components/Grid/Cell';
+import Grid from 'ustudio-ui/components/Grid/Grid';
+import Flex from 'ustudio-ui/components/Flex';
+import Text from 'ustudio-ui/components/Text';
+import Spinner from 'ustudio-ui/components/Spinner';
+
+import { Markdown } from '../../components/markdown';
 
 import { getMarkdownDocument } from './main.module';
-import Spinner from 'ustudio-ui/components/Spinner';
-import Flex from 'ustudio-ui/components/Flex';
-import { Markdown } from '../../components/markdown';
-import Text from 'ustudio-ui/components/Text';
 
 export const Main = () => {
   const [isLoading, setLoading] = useState(true);
