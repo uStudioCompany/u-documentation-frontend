@@ -106,8 +106,8 @@ const CloseDrawerButtonAnimation = keyframes`
   }
 `;
 
-const DrawerButton = styled.button<{ drawerIsOpen: boolean }>(
-  ({ drawerIsOpen }) => css`
+const DrawerButton = styled.button<{ isDrawerOpen: boolean }>(
+  ({ isDrawerOpen }) => css`
     --delay: calc(var(--transition) * 2);
 
     width: 2rem;
@@ -152,7 +152,7 @@ const DrawerButton = styled.button<{ drawerIsOpen: boolean }>(
       transition-delay: calc(var(--delay) * 2);
     }
 
-    ${drawerIsOpen
+    ${isDrawerOpen
       ? css`
           background-position-x: 32px;
           animation-name: ${OpenDrawerButtonAnimation};

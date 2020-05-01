@@ -21,8 +21,6 @@ export const Main = () => {
     try {
       const markdownFile = await getMarkdownDocument();
 
-      console.log(markdownFile);
-
       setSource(markdownFile);
     } catch ({ message: errorMessage }) {
       setError(errorMessage);

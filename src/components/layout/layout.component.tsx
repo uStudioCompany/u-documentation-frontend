@@ -40,7 +40,7 @@ export const Layout: FC = ({ children }) => {
             </a>
           </Styled.Nav>
 
-          {!isMd && isDocPage && <Styled.DrawerButton drawerIsOpen={isDrawerOpen} onClick={() => setDrawerOpen(!isDrawerOpen)} />}
+          {!isMd && isDocPage && <Styled.DrawerButton isDrawerOpen={isDrawerOpen} onClick={() => setDrawerOpen(!isDrawerOpen)} />}
         </Styled.Header>
 
         <Styled.Main isDocPage={isDocPage}>
