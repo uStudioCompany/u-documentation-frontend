@@ -9,7 +9,7 @@ export const getDocPropsFromHref = (href: string): DocProps => {
   const matchedPathArray = matchedPath[0].split('/');
 
   return {
-    path: encodePath(matchedPathArray.slice(1, -1).join('/')),
+    path: encodePath(matchedPathArray.slice(0, -1).join('/')),
     docName: matchedPathArray.slice(-1)[0],
   };
 };

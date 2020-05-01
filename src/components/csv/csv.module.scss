@@ -1,12 +1,11 @@
+.table-wrapper {
+  overflow: auto;
+  width: 100%;
+}
+
 .csv-html-table {
   margin-top: var(--i-regular);
   border-top: 1px solid var(--c-light);
-
-  &,
-  tbody,
-  tr {
-    max-width: 100%;
-  }
 
   thead,
   tr {

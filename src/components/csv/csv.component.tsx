@@ -6,7 +6,7 @@ import Text from 'ustudio-ui/components/Text';
 // @ts-ignore
 import { CsvToHtmlTable } from 'react-csv-to-table';
 
-import { getCsvDocument, getDocPropsFromHref } from './csv.module';
+import { getCsvDocument, getDocPropsFromHref, getQueryFromHref } from './csv.module';
 import { CSVProps } from './csv.types';
 
 import './csv.module.scss';
@@ -15,11 +15,35 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
   const [isLoading, setLoading] = useState(false);
   const [source, setSouce] = useState<string>('');
   const [error, setError] = useState<null | string>(null);
+
   const [title, setTitle] = useState('');
+  const [meta, setMeta] = useState<{ rows?: string; cols?: string } | null>(null);
 
   useEffect(() => {
     if (href) {
       setTitle(getDocPropsFromHref(href).docName);
+
+      const query = getQueryFromHref(href);
+
+      const matchQuery = (param: 'c' | 'r'): [string] | null => {
+        return query.match(new RegExp(`(?<=${param}\\=).+(?=&)|(?<=${param}\\=).+(?=$)`)) as [string] | null;
+      };
+
+      const formatQuery = (match: [string] | null): string | undefined => {
+        if (!match) {
+          return undefined;
+        }
+
+        // Replace by , didn't work out here
+        return match[0].split(',').join(', ');
+      };
+
+      if (query) {
+        setMeta({
+          rows: formatQuery(matchQuery('r')),
+          cols: formatQuery(matchQuery('c')),
+        });
+      }
     }
   }, [href]);
 
@@ -59,8 +83,22 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
   return (
     <Flex direction="column" margin={{ top: 'regular' }}>
       <Text variant="h3">{title}</Text>
+      {meta?.rows && (
+        <Text variant="small" color="var(--c-dark)">
+          {meta.rows} rows
+        </Text>
+      )}
 
-      <CsvToHtmlTable data={source} csvDelimiter=";" />
+      {meta?.cols && (
+        <Text variant="small" color="var(--c-dark)">
+          {', '}
+          {meta.cols} cols
+        </Text>
+      )}
+
+      <div className="table-wrapper">
+        <CsvToHtmlTable data={source} csvDelimiter=";" />
+      </div>
     </Flex>
   );
 };

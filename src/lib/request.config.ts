@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 
 import { repo } from '../../config.json';
 
-const { owner, name, branch, docsFolder, csvFolder } = repo;
+const { owner, name, branch, docsFolder } = repo;
 const serviceUrl = `http://185.25.116.133:3535`;
 
 export interface DocProps {
@@ -14,7 +14,7 @@ const prependPath = (path?: string): string => (path ? `%2F${path}` : '');
 
 export const getMainMarkdownConfig = (): AxiosRequestConfig => ({
   method: 'get',
-  url: `${serviceUrl}/entries/${owner}/${name}/${branch}//README.md`
+  url: `${serviceUrl}/entries/${owner}/${name}/${branch}//README.md`,
 });
 
 export const getEntriesConfig = (path: string): AxiosRequestConfig => ({
@@ -29,5 +29,5 @@ export const getMarkdownDocumentConfig = ({ path, docName }: DocProps): AxiosReq
 
 export const getCsvDocumentConfig = ({ path, docName }: DocProps): AxiosRequestConfig => ({
   method: 'get',
-  url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${encodeURI(csvFolder)}${prependPath(path)}/${docName}.csv`,
+  url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${path}/${docName}.csv`,
 });
