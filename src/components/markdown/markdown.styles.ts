@@ -3,8 +3,11 @@ import { Tag } from 'ustudio-ui';
 import { Mixin } from 'ustudio-ui/theme';
 
 const Root = styled.article`
-  margin: var(--i-large) 0;
+  margin-bottom: var(--i-large);
   scroll-snap-type: y mandatory;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const Divider = styled.hr`
@@ -21,9 +24,6 @@ const Paragraph = styled.div`
   ${Mixin.Font.articleRegular()};
 
   margin: var(--i-medium) 0;
-
-  overflow-x: scroll;
-  overflow-y: auto;
 `;
 
 const Quote = styled.blockquote`

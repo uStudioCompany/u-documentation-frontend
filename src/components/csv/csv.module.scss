@@ -1,12 +1,11 @@
 .csv-html-table {
+  margin-top: var(--i-regular);
   border-top: 1px solid var(--c-light);
 
   &,
   tbody,
   tr {
     max-width: 100%;
-    overflow-x: scroll;
-    overflow-y: auto;
   }
 
   thead,
@@ -24,8 +23,8 @@
   thead th {
     font-size: 1rem;
     font-variant: none;
-    font-weight: 400;
-  
+    letter-spacing: normal;
+
     &:not(:first-child):not(:last-child) {
       border-left: 1px solid var(--c-lightest);
       border-right: 1px solid var(--c-lightest);
@@ -41,7 +40,7 @@
 
     &:nth-child(2n) {
       background-color: var(--c-light);
-      
+
       td {
         border-left: 1px solid var(--c-lightest);
         border-right: 1px solid var(--c-lightest);

@@ -12,6 +12,16 @@ export interface DocProps {
 
 const prependPath = (path?: string): string => (path ? `%2F${path}` : '');
 
+export const getMainMarkdownConfig = (): AxiosRequestConfig => ({
+  method: 'get',
+  url: `${serviceUrl}/entries/${owner}/${name}/${branch}//README.md`
+});
+
+export const getEntriesConfig = (path: string): AxiosRequestConfig => ({
+  method: 'get',
+  url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${path.replace(/\//g, '%2F')}`,
+});
+
 export const getMarkdownDocumentConfig = ({ path, docName }: DocProps): AxiosRequestConfig => ({
   method: 'get',
   url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${encodeURI(docsFolder)}${prependPath(path)}/${docName}.md`,

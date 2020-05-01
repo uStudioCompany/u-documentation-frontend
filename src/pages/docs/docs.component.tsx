@@ -10,6 +10,7 @@ import { encodePath } from '../../utils';
 import { getMarkdownDocument } from './docs.module';
 import { Markdown } from '../../components/markdown';
 
+
 export const DocsPage: React.FC = () => {
   const { path, docName } = useParams();
 
@@ -33,7 +34,7 @@ export const DocsPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [path, docName]);
 
   useEffect(
     function getSourceDataOnMount() {

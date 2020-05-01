@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Flex } from 'ustudio-ui';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import { CsvToHtmlTable } from 'react-csv-to-table';
 
-import { csvFilter, getCsvDocument, getQueryFromHref } from './csv.module';
+import { csvFilter, getCsvDocument, getDocPropsFromHref, getQueryFromHref } from './csv.module';
 import { CSVProps } from './csv.types';
 
 import './csv.module.scss';
@@ -14,6 +15,13 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
   const [isLoading, setLoading] = useState(false);
   const [source, setSouce] = useState<string>('');
   const [error, setError] = useState<null | string>(null);
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    if (href) {
+      setTitle(getDocPropsFromHref(href).docName);
+    }
+  }, [href]);
 
   const getCsvSource = useCallback(async () => {
     try {
@@ -49,5 +57,11 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
     );
   }
 
-  return <CsvToHtmlTable data={source} csvDelimiter=";" />;
+  return (
+    <Flex direction="column" margin={{ top: 'regular' }}>
+      <Text variant="h3">{title}</Text>
+
+      <CsvToHtmlTable data={source} csvDelimiter=";" />
+    </Flex>
+  );
 };

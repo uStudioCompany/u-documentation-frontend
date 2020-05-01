@@ -4,7 +4,7 @@
   "author": "uStudio Front-end Crew",
   "repository": "github:uStudioCompany/u-documentation-frontend",
   "scripts": {
-    "copyLogo": "copyfiles logo.svg src/assets/images && git add src/assets/images/logo.svg",
+    "copyLogo": "copyfiles logo.svg src/assets/icons && git add src/assets/icons/logo.inline.svg",
     "dev": "rm -fr ./.cache dist && parcel public/index.html",
     "build": "rm -fr ./.cache dist && yarn run copyLogo && parcel build public/index.html ‑‑no‑cache --no-source-maps"
   },
@@ -14,6 +14,7 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
+    "@svgr/parcel-plugin-svgr": "^5.4.0",
     "@types/node": "^13.13.4",
     "@types/papaparse": "^5.0.3",
     "@types/react": "^16.9.32",
