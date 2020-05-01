@@ -108,8 +108,8 @@ const CloseDrawerButtonAnimation = keyframes`
   }
 `;
 
-const DrawerButton = styled.button<{ isDrawerOpen: boolean }>(
-  ({ isDrawerOpen }) => css`
+const DrawerButton = styled.button<{ isDrawerOpen: boolean; color?: 'lightest' | 'darkest' }>(
+  ({ isDrawerOpen, color = 'lightest' }) => css`
     --delay: calc(var(--transition) * 2);
 
     width: 2rem;
@@ -126,8 +126,8 @@ const DrawerButton = styled.button<{ isDrawerOpen: boolean }>(
     background-image: linear-gradient(
       to bottom,
       transparent calc(50% - 1px),
-      var(--c-lightest) calc(50% - 1px),
-      var(--c-lightest) calc(50% + 1px),
+      var(${`--c-${color}`}) calc(50% - 1px),
+      var(${`--c-${color}`}) calc(50% + 1px),
       transparent calc(50% + 1px)
     );
     background-repeat: no-repeat;
@@ -146,7 +146,7 @@ const DrawerButton = styled.button<{ isDrawerOpen: boolean }>(
       width: 32px;
       height: 2px;
 
-      background-color: var(--c-lightest);
+      background-color: var(${`--c-${color}`});
 
       transform-origin: right center;
 

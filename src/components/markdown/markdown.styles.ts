@@ -3,6 +3,8 @@ import { Tag } from 'ustudio-ui';
 import { Mixin } from 'ustudio-ui/theme';
 
 const Root = styled.article`
+  width: 100%;
+  
   margin-bottom: var(--i-large);
   scroll-snap-type: y mandatory;
 

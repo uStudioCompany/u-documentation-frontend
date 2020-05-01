@@ -4,6 +4,7 @@ import { Flex } from 'ustudio-ui';
 import Text from 'ustudio-ui/components/Text';
 
 import type { Node } from '../../types';
+import { FadeIn } from '../fade-in';
 
 import { NavList } from '../nav-list';
 
@@ -40,21 +41,25 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
 
   if (error) {
     return (
-      <Text color="var(--c-negative)" align="center">
-        {`${error} ☹️`}
-      </Text>
+      <FadeIn>
+        <Text color="var(--c-negative)" align="center">
+          {`${error} ☹️`}
+        </Text>
+      </FadeIn>
     );
   }
 
   return (
-    <Styled.NavItem>
-      {isRoot ? (
-        <NavList tree={folder} prevPath={path} isLoading={isLoading} />
-      ) : (
-        <Flex direction="column" margin={{ left: 'regular' }}>
+    <FadeIn>
+      <Styled.NavItem>
+        {isRoot ? (
           <NavList tree={folder} prevPath={path} isLoading={isLoading} />
-        </Flex>
-      )}
-    </Styled.NavItem>
+        ) : (
+          <Flex direction="column" margin={{ left: 'regular' }}>
+            <NavList tree={folder} prevPath={path} isLoading={isLoading} />
+          </Flex>
+        )}
+      </Styled.NavItem>
+    </FadeIn>
   );
 };
