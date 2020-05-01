@@ -1,0 +1,58 @@
+.csv-html-table {
+  border-top: 1px solid var(--c-light);
+
+  &,
+  tbody,
+  tr {
+    max-width: 100%;
+    overflow-x: scroll;
+    overflow-y: auto;
+  }
+
+  thead,
+  tr {
+    font-size: 1rem;
+    border-bottom: 1px solid var(--c-light);
+  }
+
+  thead {
+    font-weight: 700;
+
+    background-color: var(--c-light);
+  }
+
+  thead th {
+    font-size: 1rem;
+    font-variant: none;
+    font-weight: 400;
+  
+    &:not(:first-child):not(:last-child) {
+      border-left: 1px solid var(--c-lightest);
+      border-right: 1px solid var(--c-lightest);
+    }
+  }
+
+  tr {
+    &,
+    td {
+      border-left: 1px solid var(--c-light);
+      border-right: 1px solid var(--c-light);
+    }
+
+    &:nth-child(2n) {
+      background-color: var(--c-light);
+      
+      td {
+        border-left: 1px solid var(--c-lightest);
+        border-right: 1px solid var(--c-lightest);
+      }
+    }
+  }
+
+  td,
+  th {
+    font-family: var(--f-body);
+
+    padding: var(--i-regular);
+  }
+}

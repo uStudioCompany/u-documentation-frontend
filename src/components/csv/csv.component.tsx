@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import { CsvToHtmlTable } from 'react-csv-to-table';
 
 import { csvFilter, getCsvDocument, getQueryFromHref } from './csv.module';
 import { CSVProps } from './csv.types';
+
+import './csv.module.scss';
 
 export const CSV: React.FC<CSVProps> = ({ href }) => {
   const [isLoading, setLoading] = useState(false);

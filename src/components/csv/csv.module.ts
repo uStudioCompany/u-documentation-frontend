@@ -117,5 +117,5 @@ export const getCsvDocument = async (href: string): Promise<string> => {
     data: { content: source },
   } = await axios(getCsvDocumentConfig(getDocPropsFromHref(href)));
 
-  return source /*csvFilter({ csvString: source, queryString: getQueryFromHref(href) })*/;
+  return csvFilter({ csvString: source, queryString: getQueryFromHref(href) });
 };

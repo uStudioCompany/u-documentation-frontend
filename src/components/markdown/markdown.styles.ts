@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Tag } from 'ustudio-ui';
 import { Mixin } from 'ustudio-ui/theme';
-import Text from 'ustudio-ui/components/Text';
 
 const Root = styled.article`
   margin: var(--i-large) 0;
@@ -22,6 +21,9 @@ const Paragraph = styled.div`
   ${Mixin.Font.articleRegular()};
 
   margin: var(--i-medium) 0;
+
+  overflow-x: scroll;
+  overflow-y: auto;
 `;
 
 const Quote = styled.blockquote`
