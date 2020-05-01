@@ -11,7 +11,7 @@ import { getEntries } from './layout.module';
 import Styled from './layout.styles';
 
 import { sortDocsByName } from '../../utils';
-import { repo } from '../../../config.json';
+import { name, repo } from '../../../config.json';
 
 export const DrawerState = createContext(() => {});
 
@@ -42,7 +42,7 @@ export const Layout: FC = ({ children }) => {
 
   return (
     <>
-      <Helmet titleTemplate={`${repo.name} | %s`} defaultTitle={repo.name} />
+      <Helmet titleTemplate={`${name} | %s`} defaultTitle={name} />
 
       <DrawerState.Provider value={() => setDrawerOpen(false)}>
         <Styled.Layout>

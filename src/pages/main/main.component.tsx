@@ -11,7 +11,7 @@ import { Markdown } from '../../components/markdown';
 import { CenteredContainer } from '../../components/centered-container';
 import { FadeIn } from '../../components/fade-in';
 
-import { repo } from '../../../config.json';
+import { name } from '../../../config.json';
 
 import { getMarkdownDocument } from './main.module';
 
@@ -41,7 +41,7 @@ export const Main = () => {
   return (
     <>
       <Helmet>
-        <title>{repo.name} documentation</title>
+        <title>{name} documentation</title>
       </Helmet>
 
       <Grid isContainer>
