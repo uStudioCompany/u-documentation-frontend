@@ -21,9 +21,7 @@ export const NavList = ({ tree, prevPath, isLoading }: { tree: Node[]; prevPath:
 
   return (
     <>
-      {[...(tree || [])]
-        .sort((entryA, entryB) => entryA.name.toLowerCase().localeCompare(entryA.name.toLowerCase()))
-        .map((node) => {
+      {tree?.map((node) => {
         const parsedDocName = node.name.replace('.md', '');
 
         return node.type === 'tree' ? (

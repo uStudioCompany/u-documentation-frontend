@@ -9,6 +9,7 @@ import { Aside } from '../aside';
 import { getEntries } from './layout.module';
 import Styled from './layout.styles';
 
+import { sortDocsByName } from '../../utils';
 import { name, repo } from '../../../config.json';
 
 export const DrawerState = createContext(() => {});
@@ -26,13 +27,12 @@ export const Layout: FC = ({ children }) => {
   const getFolder = async () => {
     const entries = await getEntries(`${repo.docsFolder}`);
 
-    console.log(
-
+    setFirstDocName(
+      [...entries]
+        .filter((entry) => entry.type === 'blob')
+        .sort(sortDocsByName)[0]
+        .name.replace('.md', '')
     );
-
-    setFirstDocName([...entries]
-      .sort((entryA, entryB) => entryA.name.toLowerCase().localeCompare(entryA.name.toLowerCase()))[0]
-      .name.replace('.md', ''))
   };
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const Layout: FC = ({ children }) => {
           </Styled.LogoLink>
 
           <Styled.Nav>
-            <Link to={`/${repo.docsFolder}/${firstDocName}`}>Docs</Link>
+            {firstDocName && <Link to={`/${repo.docsFolder}/${firstDocName}`}>Docs</Link>}
 
             <a href={`https://github.com/${repo.owner}/${repo.name}`} target="_blank" rel="noopener noreferrer">
               Github
