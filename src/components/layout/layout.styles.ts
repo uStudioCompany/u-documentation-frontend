@@ -125,10 +125,10 @@ const DrawerButton = styled.button<{ isDrawerOpen: boolean }>(
 
     background-image: linear-gradient(
       to bottom,
-      var(--c-primary) calc(50% - 1px),
-      var(--c-darkest) calc(50% - 1px),
-      var(--c-darkest) calc(50% + 1px),
-      var(--c-primary) calc(50% + 1px)
+      transparent calc(50% - 1px),
+      var(--c-lightest) calc(50% - 1px),
+      var(--c-lightest) calc(50% + 1px),
+      transparent calc(50% + 1px)
     );
     background-repeat: no-repeat;
     background-position-x: 0;
@@ -146,7 +146,7 @@ const DrawerButton = styled.button<{ isDrawerOpen: boolean }>(
       width: 32px;
       height: 2px;
 
-      background-color: var(--c-darkest);
+      background-color: var(--c-lightest);
 
       transform-origin: right center;
 

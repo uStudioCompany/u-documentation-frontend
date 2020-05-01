@@ -6,7 +6,7 @@ import Text from 'ustudio-ui/components/Text';
 // @ts-ignore
 import { CsvToHtmlTable } from 'react-csv-to-table';
 
-import { csvFilter, getCsvDocument, getDocPropsFromHref, getQueryFromHref } from './csv.module';
+import { getCsvDocument, getDocPropsFromHref } from './csv.module';
 import { CSVProps } from './csv.types';
 
 import './csv.module.scss';
@@ -23,14 +23,13 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
     }
   }, [href]);
 
-  const getCsvSource = useCallback(async () => {
+  const getCsvSource = useCallback(async (): Promise<void> => {
     try {
       setLoading(true);
 
-      const csvString = await getCsvDocument(href);
-      const filteredCsv = csvFilter({ csvString, queryString: getQueryFromHref(href) });
+      const csv = await getCsvDocument(href);
 
-      setSouce(filteredCsv);
+      setSouce(csv);
     } catch ({ message: errorMessage }) {
       setError(errorMessage);
     } finally {
