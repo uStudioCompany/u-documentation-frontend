@@ -23,21 +23,19 @@ export const NavList = ({ tree, prevPath, isLoading }: { tree: Node[]; prevPath:
 
   return (
     <>
-      {tree?.map((node) => {
-        const parsedDocName = node.name.replace('.md', '');
+      {[...(tree || [])]
+        .sort((entryA, entryB) => entryA.name.toLowerCase().localeCompare(entryA.name.toLowerCase()))
+        .map((node) => {
+          const parsedDocName = node.name.replace('.md', '');
 
-        return node.type === 'tree' ? (
-          <NavItem key={node.name} node={node} prevPath={prevPath} />
-        ) : (
-          <Link
-            to={`/${prevPath}/${parsedDocName}`}
-            key={node.name}
-            onClick={setDrawerState}
-          >
-            {parsedDocName}
-          </Link>
-        );
-      })}
+          return node.type === 'tree' ? (
+            <NavItem key={node.name} node={node} prevPath={prevPath} />
+          ) : (
+            <Link to={`/${prevPath}/${parsedDocName}`} key={node.name} onClick={setDrawerState}>
+              {parsedDocName}
+            </Link>
+          );
+        })}
     </>
   );
 };

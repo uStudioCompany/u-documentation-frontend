@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext } from 'react';
+import React, { FC, useState, useEffect, createContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import useMediaQuery from 'ustudio-ui/hooks/use-media-query';
@@ -8,6 +8,7 @@ import logo from '../../assets/images/logo.svg';
 
 import { Aside } from '../aside';
 
+import { getEntries } from './layout.module';
 import Styled from './layout.styles';
 
 import { name, repo } from '../../../config.json';
@@ -15,6 +16,7 @@ import { name, repo } from '../../../config.json';
 export const DrawerState = createContext(() => {});
 
 export const Layout: FC = ({ children }) => {
+  const [firstDocName, setFirstDocName] = useState('');
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   const { pathname } = useLocation();
@@ -22,6 +24,22 @@ export const Layout: FC = ({ children }) => {
   const isDocPage = pathname.includes(repo.docsFolder);
 
   const isMd = useMediaQuery('screen and (min-width: 768px)');
+
+  const getFolder = async () => {
+    const entries = await getEntries(`${repo.docsFolder}`);
+
+    console.log(
+
+    );
+
+    setFirstDocName([...entries]
+      .sort((entryA, entryB) => entryA.name.toLowerCase().localeCompare(entryA.name.toLowerCase()))[0]
+      .name.replace('.md', ''))
+  };
+
+  useEffect(() => {
+    getFolder();
+  }, []);
 
   return (
     <DrawerState.Provider value={() => setDrawerOpen(false)}>
@@ -33,14 +51,16 @@ export const Layout: FC = ({ children }) => {
           </Styled.LogoLink>
 
           <Styled.Nav>
-            <Link to="/docs">Docs</Link>
+            <Link to={`/${repo.docsFolder}/${firstDocName}`}>Docs</Link>
 
             <a href={`https://github.com/${repo.owner}/${repo.name}`} target="_blank" rel="noopener noreferrer">
               Github
             </a>
           </Styled.Nav>
 
-          {!isMd && isDocPage && <Styled.DrawerButton isDrawerOpen={isDrawerOpen} onClick={() => setDrawerOpen(!isDrawerOpen)} />}
+          {!isMd && isDocPage && (
+            <Styled.DrawerButton isDrawerOpen={isDrawerOpen} onClick={() => setDrawerOpen(!isDrawerOpen)} />
+          )}
         </Styled.Header>
 
         <Styled.Main isDocPage={isDocPage}>
