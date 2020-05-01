@@ -11,6 +11,8 @@ import logo from '../../assets/images/logo.svg';
 
 import Styled from './pate-404.styles';
 
+import { name } from '../../../config.json';
+
 export const Page404 = () => {
   const { goBack, replace } = useHistory();
 
@@ -21,14 +23,14 @@ export const Page404 = () => {
           <Flex alignment={{ horizontal: 'center', vertical: 'center' }}>
             <Styled.ErrorStatus>4</Styled.ErrorStatus>
 
-            <Styled.Logo src={logo} alt="Bulb Project Logo" />
+            <Styled.Logo src={logo} alt={`${name} Logo`} />
 
             <Styled.ErrorStatus>4</Styled.ErrorStatus>
           </Flex>
 
           <Flex alignment={{ horizontal: 'center', vertical: 'center' }}>
             <Text color="var(--c-dark)" align="center" variant="h1">
-              Someone stole this page ... :(
+              Someone has stolen this page ... :(
             </Text>
           </Flex>
 
@@ -38,7 +40,7 @@ export const Page404 = () => {
             </Button>
 
             <Button appearance="text" onClick={() => replace('/')}>
-              To main
+              Home
             </Button>
           </Flex>
         </Styled.Content>
