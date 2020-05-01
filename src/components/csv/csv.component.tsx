@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
+import { CsvToHtmlTable } from 'react-csv-to-table';
 
-import { getCsvDocument } from './csv.module';
+import { csvFilter, getCsvDocument, getQueryFromHref } from './csv.module';
 import { CSVProps } from './csv.types';
 
 export const CSV: React.FC<CSVProps> = ({ href }) => {
@@ -14,12 +15,14 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
     try {
       setLoading(true);
 
-      const csvFile = await getCsvDocument(href);
-      setSouce(csvFile);
+      const csvString = await getCsvDocument(href);
+      const filteredCsv = csvFilter({ csvString, queryString: getQueryFromHref(href) });
+
+      setSouce(filteredCsv);
     } catch ({ message: errorMessage }) {
       setError(errorMessage);
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   }, []);
 
@@ -42,5 +45,5 @@ export const CSV: React.FC<CSVProps> = ({ href }) => {
     );
   }
 
-  return <p>{source}</p>;
+  return <CsvToHtmlTable data={source} csvDelimiter=";" />;
 };

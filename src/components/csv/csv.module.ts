@@ -14,7 +14,7 @@ export const getDocPropsFromHref = (href: string): DocProps => {
   };
 };
 
-const getQueryFromHref = (href: string): string => {
+export const getQueryFromHref = (href: string): string => {
   const matchedPath = href.match(/(?<=\.csv).+$/) as [string] | null;
 
   if (matchedPath) {

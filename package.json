@@ -25,6 +25,7 @@
     "babel-plugin-styled-components": "^1.10.7",
     "papaparse": "^5.2.0",
     "react": "^16.13.1",
+    "react-csv-to-table": "^0.0.4",
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.1.2",
