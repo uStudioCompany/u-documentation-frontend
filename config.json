@@ -11,6 +11,7 @@
     "owner": "annisokay97",
     "name": "markdownRepo",
     "branch": "master",
-    "docsFolder": "docs"
+    "docsFolder": "docs",
+    "csvFolder": "data-set"
   }
 }

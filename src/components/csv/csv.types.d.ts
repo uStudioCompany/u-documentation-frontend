@@ -1,3 +1,3 @@
 export interface CSVProps {
-  query: string;
+  href: string;
 }

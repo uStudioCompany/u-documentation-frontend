@@ -5,6 +5,8 @@ import Flex from 'ustudio-ui/components/Flex';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
 
+import { encodePath } from '../../utils';
+
 import { getMarkdownDocument } from './docs.module';
 import { Markdown } from '../../components/markdown';
 
@@ -21,7 +23,7 @@ export const DocsPage: React.FC = () => {
 
     try {
       const markdownFile = await getMarkdownDocument({
-        path: `${(path || '').replace(/\//g, '%2F')}`,
+        path: encodePath(path),
         docName,
       });
 

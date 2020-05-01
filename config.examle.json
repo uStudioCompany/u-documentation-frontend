@@ -13,6 +13,7 @@
     "owner": "",
     "name": "",
     "branch": "",
-    "docsFolder": ""
+    "docsFolder": "",
+    "csvFolder": ""
   }
 }

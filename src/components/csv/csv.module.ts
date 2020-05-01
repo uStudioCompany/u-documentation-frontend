@@ -1,4 +1,28 @@
 import PapaParse from 'papaparse';
+import axios from 'axios';
+
+import { DocProps, getCsvDocumentConfig } from '../../lib';
+import { encodePath } from '../../utils';
+
+export const getDocPropsFromHref = (href: string): DocProps => {
+  const matchedPath = href.match(/(?<=\/).+(?=\.csv)/) as [string];
+  const matchedPathArray = matchedPath[0].split('/');
+
+  return {
+    path: encodePath(matchedPathArray.slice(1, -1).join('/')),
+    docName: matchedPathArray.slice(-1)[0],
+  };
+};
+
+const getQueryFromHref = (href: string): string => {
+  const matchedPath = href.match(/(?<=\.csv).+$/) as [string] | null;
+
+  if (matchedPath) {
+    return matchedPath[0];
+  }
+
+  return '';
+};
 
 const queryStringPattern = /\?([rc])=\d+((,\d+)*(-\d+)?)*(&([rc])=\d+((,\d+)*(-\d+)?)*)?/;
 const numberQuery = /^\d+$/;
@@ -86,4 +110,12 @@ export const csvFilter = ({ csvString, queryString = '' }: { csvString: string; 
   return PapaParse.unparse(filteredModel, {
     delimiter: ';',
   });
+};
+
+export const getCsvDocument = async (href: string): Promise<string> => {
+  const {
+    data: { content: source },
+  } = await axios(getCsvDocumentConfig(getDocPropsFromHref(href)));
+
+  return source /*csvFilter({ csvString: source, queryString: getQueryFromHref(href) })*/;
 };

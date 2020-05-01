@@ -1,20 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import Placeholder from 'ustudio-ui/components/Placeholder';
+import React, { useCallback, useEffect, useState } from 'react';
+import Spinner from 'ustudio-ui/components/Spinner';
+import Text from 'ustudio-ui/components/Text';
 
+import { getCsvDocument } from './csv.module';
 import { CSVProps } from './csv.types';
 
-export const CSV: React.FC<CSVProps> = ({ query }) => {
-  const [isMounted, setMounted] = useState(false);
+export const CSV: React.FC<CSVProps> = ({ href }) => {
+  const [isLoading, setLoading] = useState(false);
+  const [source, setSouce] = useState<string>([]);
+  const [error, setError] = useState<null | string>(null);
 
-  useEffect(() => {
-    setMounted(true);
+  const getCsvSource = useCallback(async () => {
+    try {
+      setLoading(true);
 
-    return () => setMounted(false);
+      const csvFile = await getCsvDocument(href);
+      setSouce(csvFile);
+    } catch ({ message: errorMessage }) {
+      setError(errorMessage);
+    } finally {
+      setLoading(true);
+    }
   }, []);
 
-  if (!isMounted) {
-    return <Placeholder appearance={{ width: '100%' }} />;
+  useEffect(function getCsvDocumentOnMount() {
+    getCsvSource();
+  }, []);
+
+  if (isLoading) {
+    return <Spinner delay={1000} appearance={{ size: 16 }} />;
   }
 
-  return <p>csv!</p>;
+  if (error) {
+    return (
+      <Text color="var(--c-negative)">
+        This table was unable to load{' '}
+        <span role="img" aria-label=":(">
+          ☹
+        </span>
+      </Text>
+    );
+  }
+
+  return <p>{source}</p>;
 };
