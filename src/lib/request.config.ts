@@ -31,3 +31,8 @@ export const getCsvDocumentConfig = ({ path, docName }: DocProps): AxiosRequestC
   method: 'get',
   url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${path}/${docName}.csv`,
 });
+
+export const getJsonSchemeDocumentConfig = ({ path, docName }: DocProps): AxiosRequestConfig => ({
+  method: 'get',
+  url: `${serviceUrl}/entries/${owner}/${name}/${branch}/${path}/${docName}.json`,
+});
