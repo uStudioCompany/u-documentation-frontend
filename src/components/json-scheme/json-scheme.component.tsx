@@ -6,6 +6,7 @@ import Flex from 'ustudio-ui/components/Flex';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
 
+import { getDocPropsFromHref } from '../../utils';
 import { FadeIn } from '../fade-in';
 
 import { getJsonSchemeDocument } from './json-scheme.module';
@@ -29,8 +30,6 @@ export const JsonScheme: React.FC<SchemeProps> = ({ href, title }) => {
       setLoading(false);
     }
   }, []);
-
-  console.log(source);
 
   useEffect(function getCsvDocumentOnMount() {
     getJsonSchemeSource();
@@ -56,7 +55,7 @@ export const JsonScheme: React.FC<SchemeProps> = ({ href, title }) => {
   return (
     <FadeIn>
       <Flex direction="column" margin={{ top: 'regular' }}>
-        <JsonSchemaParser schema={{}} title="title" />
+        <JsonSchemaParser schema={source} title={getDocPropsFromHref(href, 'schema.json').docName} />
       </Flex>
     </FadeIn>
   );
