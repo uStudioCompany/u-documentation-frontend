@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { JSONSchema4 } from 'json-schema';
+import { JsonSchemaParser } from 'u-json-docs';
+import { JSONSchema7 } from 'json-schema';
 import Flex from 'ustudio-ui/components/Flex';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
@@ -9,12 +10,10 @@ import { FadeIn } from '../fade-in';
 
 import { getJsonSchemeDocument } from './json-scheme.module';
 import type { SchemeProps } from './json-scheme.types';
-import { Wrapper } from './json-scheme-wrapper.component';
-
 
 export const JsonScheme: React.FC<SchemeProps> = ({ href, title }) => {
   const [isLoading, setLoading] = useState(false);
-  const [source, setSouce] = useState<JSONSchema4>({});
+  const [source, setSource] = useState<JSONSchema7>({});
   const [error, setError] = useState<null | string>(null);
 
   const getJsonSchemeSource = useCallback(async (): Promise<void> => {
@@ -23,7 +22,7 @@ export const JsonScheme: React.FC<SchemeProps> = ({ href, title }) => {
 
       const jsonScheme = await getJsonSchemeDocument(href);
 
-      setSouce(jsonScheme);
+      setSource(jsonScheme);
     } catch ({ message: errorMessage }) {
       setError(errorMessage);
     } finally {
@@ -31,19 +30,21 @@ export const JsonScheme: React.FC<SchemeProps> = ({ href, title }) => {
     }
   }, []);
 
+  console.log(source);
+
   useEffect(function getCsvDocumentOnMount() {
     getJsonSchemeSource();
   }, []);
 
   if (isLoading) {
-    return <Spinner delay={1000} appearance={{ size: 16 }}/>;
+    return <Spinner delay={1000} appearance={{ size: 16 }} />;
   }
 
   if (error) {
     return (
       <FadeIn>
         <Text color="var(--c-negative)">
-          This table was unable to load{' '}
+          This schema was unable to load{' '}
           <span role="img" aria-label=":(">
             ☹️
           </span>
@@ -52,11 +53,10 @@ export const JsonScheme: React.FC<SchemeProps> = ({ href, title }) => {
     );
   }
 
-
   return (
     <FadeIn>
       <Flex direction="column" margin={{ top: 'regular' }}>
-        <Wrapper schema={source} title="BLA"/>
+        <JsonSchemaParser schema={{}} title="title" />
       </Flex>
     </FadeIn>
   );

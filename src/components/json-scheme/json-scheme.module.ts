@@ -1,12 +1,12 @@
 import axios from 'axios';
-import $RefParser from '@apidevtools/json-schema-ref-parser';
-import { JSONSchema4 } from 'json-schema';
+import { JSONSchema7 } from 'json-schema';
 
 import { DocProps, getJsonSchemeDocumentConfig } from '../../lib';
 import { encodePath } from '../../utils';
 
-export const getDocPropsFromHref = (href: string): DocProps => {
-  const matchedPath = href.match(/(?:\/).+(?=\.json)/) as [string];
+export const getDocPropsFromHref = (href: string, extension: string): DocProps => {
+  const path = new RegExp(`(?:/).+(?=.${extension})`);
+  const matchedPath = href.match(path) as [string];
   const matchedPathArray = matchedPath[0].split('/');
 
   return {
@@ -15,13 +15,10 @@ export const getDocPropsFromHref = (href: string): DocProps => {
   };
 };
 
-
-export const getJsonSchemeDocument = async (href: string): Promise<JSONSchema4> => {
+export const getJsonSchemeDocument = async (href: string): Promise<JSONSchema7> => {
   const {
     data: { content },
-  } = await axios(getJsonSchemeDocumentConfig(getDocPropsFromHref(href)));
+  } = await axios(getJsonSchemeDocumentConfig(getDocPropsFromHref(href, 'json')));
 
-  const parsed = await $RefParser.dereference(JSON.parse(content));
-
-  return parsed as JSONSchema4;
+  return content;
 };

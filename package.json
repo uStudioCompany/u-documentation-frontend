@@ -6,7 +6,7 @@
   "scripts": {
     "copyLogo": "cpy logo.svg src/assets/icons/ --rename=logo.inline.svg && git add src/assets/icons/logo.inline.svg",
     "copyRobotsFile": "cpy public/robots.txt dist",
-    "dev": "rm -fr ./.cache dist && parcel public/index.html",
+    "dev": "parcel public/index.html",
     "build": "rm -fr ./.cache dist && yarn run copyLogo && parcel build public/index.html --no-autoinstall --no-source-maps --public-url / && yarn copyRobotsFile",
     "deploy": "yarn build && gh-pages -b gh-pages --dotfiles=true -d dist"
   },
@@ -33,6 +33,7 @@
     "babel-preset-typescript": "^7.0.0-alpha.19",
     "cpy-cli": "^3.1.1",
     "framer-motion": "^1.10.3",
+    "json-schema": "^0.2.5",
     "papaparse": "^5.2.0",
     "parcel-bundler": "^1.12.4",
     "react": "^16.8",
@@ -45,6 +46,7 @@
     "sass": "^1.26.5",
     "styled-components": "^5.0.1",
     "typescript": "^3.8.3",
+    "u-json-docs": "^0.0.8",
     "ustudio-ui": "^1.2.1"
   },
   "devDependencies": {
