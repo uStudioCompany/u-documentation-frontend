@@ -1,4 +1,4 @@
-export interface SchemeProps {
+export interface SchemaProps {
   href: string;
   title?: string;
 }

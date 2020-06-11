@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { JsonSchemaParser } from 'u-json-docs';
 import { JSONSchema7 } from 'json-schema';
+
 import Flex from 'ustudio-ui/components/Flex';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
@@ -9,19 +10,19 @@ import Text from 'ustudio-ui/components/Text';
 import { getDocPropsFromHref } from '../../utils';
 import { FadeIn } from '../fade-in';
 
-import { getJsonSchemeDocument } from './json-scheme.module';
-import type { SchemeProps } from './json-scheme.types';
+import { getJsonSchemaDocument } from './json-schema.module';
+import type { SchemaProps } from './json-schema.types';
 
-export const JsonScheme: React.FC<SchemeProps> = ({ href, title }) => {
+export const JsonSchema: React.FC<SchemaProps> = ({ href, title }) => {
   const [isLoading, setLoading] = useState(false);
   const [source, setSource] = useState<JSONSchema7>({});
   const [error, setError] = useState<null | string>(null);
 
-  const getJsonSchemeSource = useCallback(async (): Promise<void> => {
+  const getJsonSchemaSource = useCallback(async (): Promise<void> => {
     try {
       setLoading(true);
 
-      const jsonScheme = await getJsonSchemeDocument(href);
+      const jsonScheme = await getJsonSchemaDocument(href);
 
       setSource(jsonScheme);
     } catch ({ message: errorMessage }) {
@@ -32,7 +33,7 @@ export const JsonScheme: React.FC<SchemeProps> = ({ href, title }) => {
   }, []);
 
   useEffect(function getCsvDocumentOnMount() {
-    getJsonSchemeSource();
+    getJsonSchemaSource();
   }, []);
 
   if (isLoading) {

@@ -4,7 +4,7 @@ import { Renderers } from 'react-markdown';
 import Styled from './markdown.styles';
 
 import { CSV } from '../csv';
-import { JsonScheme } from '../json-scheme/json-scheme.component';
+import { JsonSchema } from '../json-schema';
 
 export const renderers: Renderers = {
   thematicBreak: Styled.Divider,
@@ -32,8 +32,8 @@ export const renderers: Renderers = {
       return <CSV href={href} title={title} />;
     }
 
-    if (/^.+\.json/.test(href)) {
-      return <JsonScheme href={href}/>
+    if (/^.+\.schema.json/.test(href)) {
+      return <JsonSchema href={href} />;
     }
 
     return <Styled.Link href={href}>{children}</Styled.Link>;
