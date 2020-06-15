@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Flex from 'ustudio-ui/components/Flex';
 import Text from 'ustudio-ui/components/Text';
+import { useRequest } from 'honks';
 
 import { FadeIn } from '../fade-in';
 import { NavList } from '../nav-list';
@@ -12,62 +13,58 @@ import Styled from './nav-item.styles';
 import type { Node } from '../../types';
 
 export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: string; isRoot?: true }) => {
-  const [folder, serFolder] = useState([] as Node[]);
-
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [folder] = useState([] as Node[]);
 
   const path = `${prevPath ? `${prevPath}/` : ''}${node.name}`;
 
-  const getFolder = useCallback(async (): Promise<void> => {
+  const getFolder = async (): Promise<Node[]> => {
     if (!folder.length) {
-      setLoading(true);
-
-      try {
-        const entries = await getEntries(path);
-
-        serFolder(entries);
-      } catch ({ message: errorMessage }) {
-        setError(errorMessage);
-      } finally {
-        setLoading(false);
-      }
+      return getEntries(path);
     }
-  }, []);
+    return [];
+  };
+
+  const { sendRequest, onSuccess, onFail, isPending } = useRequest(getFolder);
 
   useEffect(function getFolderOnMount() {
-    getFolder();
+    sendRequest();
   }, []);
 
-  if (error) {
-    return (
-      <FadeIn>
-        <Text color="var(--c-negative)" align="center">
-          {`${error} ☹️`}
-        </Text>
-      </FadeIn>
-    );
-  }
-
   return (
-    <FadeIn>
-      <div>
-        {isRoot ? (
-          <NavList tree={folder} prevPath={path} isLoading={isLoading} />
-        ) : (
-          <Flex direction="column" margin={{ top: 'medium' }}>
-            <Flex alignment={{ vertical: 'center' }}>
-              <Styled.Folder />
+    <>
+      {onFail((error) => {
+        return (
+          <FadeIn>
+            <Text color="var(--c-negative)" align="center">
+              {`${error} ☹️`}
+            </Text>
+          </FadeIn>
+        );
+      })}
 
-              <Text>{node.name}</Text>
-            </Flex>
+      {onSuccess((data) => {
+        return (
+          <FadeIn>
+            <div>
+              {isRoot ? (
+                <NavList tree={data} prevPath={path} isLoading={isPending()} />
+              ) : (
+                <Flex direction="column" margin={{ top: 'medium' }}>
+                  <Flex alignment={{ vertical: 'center' }}>
+                    <Styled.Folder />
 
-            <Styled.NavList direction="column">
-              <NavList tree={folder} prevPath={path} isLoading={isLoading} />
-            </Styled.NavList>
-          </Flex>
-        )}
-      </div>
-    </FadeIn>
+                    <Text>{node.name}</Text>
+                  </Flex>
+
+                  <Styled.NavList direction="column">
+                    <NavList tree={data} prevPath={path} isLoading={isPending()} />
+                  </Styled.NavList>
+                </Flex>
+              )}
+            </div>
+          </FadeIn>
+        );
+      })}
+    </>
   );
 };
