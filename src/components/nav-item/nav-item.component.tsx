@@ -15,11 +15,7 @@ import type { Node } from '../../types';
 export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: string; isRoot?: true }) => {
   const path = `${prevPath ? `${prevPath}/` : ''}${node.name}`;
 
-  const getFolder = (): Promise<Node[]> => {
-    return getEntries(path);
-  };
-
-  const { sendRequest, onSuccess, onFail, isPending } = useRequest(getFolder);
+  const { sendRequest, onSuccess, onFail, isPending } = useRequest(() => getEntries(path));
 
   useEffect(function getFolderOnMount() {
     sendRequest();
@@ -27,22 +23,12 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
 
   return (
     <>
-      {onFail((error) => {
-        return (
-          <FadeIn>
-            <Text color="var(--c-negative)" align="center">
-              {`${error} ☹️`}
-            </Text>
-          </FadeIn>
-        );
-      })}
-
-      {onSuccess((data) => {
-        return (
-          <FadeIn>
+      <FadeIn>
+        {onSuccess((data) => {
+          return (
             <div>
               {isRoot ? (
-                <NavList tree={data} prevPath={path} isLoading={isPending()} />
+                <NavList tree={data} prevPath={path} />
               ) : (
                 <Flex direction="column" margin={{ top: 'medium' }}>
                   <Flex alignment={{ vertical: 'center' }}>
@@ -52,14 +38,22 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
                   </Flex>
 
                   <Styled.NavList direction="column">
-                    <NavList tree={data} prevPath={path} isLoading={isPending()} />
+                    <NavList tree={data} prevPath={path} />
                   </Styled.NavList>
                 </Flex>
               )}
             </div>
-          </FadeIn>
-        );
-      })}
+          );
+        })}
+
+        {onFail((error) => {
+          return (
+            <Text color="var(--c-negative)" align="center">
+              {`${error} ☹️`}
+            </Text>
+          );
+        })}
+      </FadeIn>
     </>
   );
 };

@@ -15,11 +15,7 @@ import { name } from '../../../config.json';
 import { getMarkdownDocument, Wrapper } from './main.module';
 
 export const Main = () => {
-  const getMainContent = async (): Promise<string> => {
-    return getMarkdownDocument();
-  };
-
-  const { sendRequest, onSuccess, onFail, onPending } = useRequest(getMainContent);
+  const { sendRequest, onSuccess, onFail, onPending } = useRequest(() => getMarkdownDocument());
 
   useEffect(function getSourceDataOnMount() {
     sendRequest();
@@ -32,37 +28,31 @@ export const Main = () => {
       </Helmet>
 
       <Wrapper>
-        {onPending(() => {
-          return (
-            <FadeIn>
+        <FadeIn>
+          {onPending(() => {
+            return (
               <CenteredContainer>
                 <Flex alignment={{ horizontal: 'center' }}>
                   <Spinner appearance={{ size: 48 }} />
                 </Flex>
               </CenteredContainer>
-            </FadeIn>
-          );
-        })}
+            );
+          })}
 
-        {onSuccess((data) => {
-          return (
-            <FadeIn>
-              <Markdown source={data} />
-            </FadeIn>
-          );
-        })}
+          {onSuccess((data) => {
+            return <Markdown source={data} />;
+          })}
 
-        {onFail((error) => {
-          return (
-            <FadeIn>
+          {onFail((error) => {
+            return (
               <CenteredContainer>
                 <Text variant="h5" color="var(--c-negative)" align="center">
                   {`${error} ☹️`}
                 </Text>
               </CenteredContainer>
-            </FadeIn>
-          );
-        })}
+            );
+          })}
+        </FadeIn>
       </Wrapper>
     </>
   );

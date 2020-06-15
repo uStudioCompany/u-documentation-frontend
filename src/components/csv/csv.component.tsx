@@ -8,6 +8,7 @@ import Text from 'ustudio-ui/components/Text';
 // @ts-ignore
 import { CsvToHtmlTable } from 'react-csv-to-table';
 import { useRequest } from 'honks';
+
 import { FadeIn } from '../fade-in';
 
 import { getCsvDocument, getQueryFromHref } from './csv.module';
@@ -44,11 +45,7 @@ export const CSV: React.FC<CSVProps> = ({ href, title }) => {
     }
   }, [href]);
 
-  const getCsvSource = (): Promise<string> => {
-    return getCsvDocument(href);
-  };
-
-  const { sendRequest, onSuccess, onFail, onPending } = useRequest(getCsvSource);
+  const { sendRequest, onSuccess, onFail, onPending } = useRequest<string>(() => getCsvDocument(href));
 
   useEffect(function getCsvDocumentOnMount() {
     sendRequest();
@@ -56,23 +53,6 @@ export const CSV: React.FC<CSVProps> = ({ href, title }) => {
 
   return (
     <>
-      {onFail(() => {
-        return (
-          <FadeIn>
-            <Text color="var(--c-negative)">
-              This table was unable to load{' '}
-              <span role="img" aria-label=":(">
-                ☹️
-              </span>
-            </Text>
-          </FadeIn>
-        );
-      })}
-
-      {onPending(() => {
-        return <Spinner delay={1000} appearance={{ size: 16 }} />;
-      })}
-
       {onSuccess((data) => {
         return (
           <FadeIn>
@@ -102,6 +82,23 @@ export const CSV: React.FC<CSVProps> = ({ href, title }) => {
             </Flex>
           </FadeIn>
         );
+      })}
+
+      {onFail(() => {
+        return (
+          <FadeIn>
+            <Text color="var(--c-negative)">
+              This table was unable to load{' '}
+              <span role="img" aria-label=":(">
+                ☹️
+              </span>
+            </Text>
+          </FadeIn>
+        );
+      })}
+
+      {onPending(() => {
+        return <Spinner delay={1000} appearance={{ size: 16 }} />;
       })}
     </>
   );

@@ -15,11 +15,7 @@ import { getJsonSchemaDocument } from './json-schema.module';
 import type { SchemaProps } from './json-schema.types';
 
 export const JsonSchema: React.FC<SchemaProps> = ({ href }) => {
-  const getJsonSchemaSource = (): Promise<string> => {
-    return getJsonSchemaDocument(href);
-  };
-
-  const { sendRequest, onSuccess, onFail, onPending } = useRequest(getJsonSchemaSource);
+  const { sendRequest, onSuccess, onFail, onPending } = useRequest<string>(() => getJsonSchemaDocument(href));
 
   useEffect(function getJsonSchemaDocumentOnMount() {
     sendRequest();
@@ -27,6 +23,16 @@ export const JsonSchema: React.FC<SchemaProps> = ({ href }) => {
 
   return (
     <>
+      {onSuccess((data) => {
+        return (
+          <FadeIn>
+            <Flex direction="column" margin={{ top: 'regular' }}>
+              <JsonSchemaParser schema={JSON.parse(data)} title={parseDocPath(href, 'schema.json').docName} />
+            </Flex>
+          </FadeIn>
+        );
+      })}
+
       {onPending(() => (
         <Spinner delay={1000} appearance={{ size: 16 }} />
       ))}
@@ -40,16 +46,6 @@ export const JsonSchema: React.FC<SchemaProps> = ({ href }) => {
                 ☹️
               </span>
             </Text>
-          </FadeIn>
-        );
-      })}
-
-      {onSuccess((data) => {
-        return (
-          <FadeIn>
-            <Flex direction="column" margin={{ top: 'regular' }}>
-              <JsonSchemaParser schema={JSON.parse(data)} title={parseDocPath(href, 'schema.json').docName} />
-            </Flex>
           </FadeIn>
         );
       })}

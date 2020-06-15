@@ -40,38 +40,31 @@ export const DocsPage: React.FC = () => {
       <Helmet>
         <title>{docName}</title>
       </Helmet>
-
-      {onPending(() => {
-        return (
-          <FadeIn>
+      <FadeIn>
+        {onPending(() => {
+          return (
             <CenteredContainer>
               <Flex alignment={{ horizontal: 'center' }}>
                 <Spinner delay={500} appearance={{ size: 48 }} />
               </Flex>
             </CenteredContainer>
-          </FadeIn>
-        );
-      })}
+          );
+        })}
 
-      {onSuccess((data) => {
-        return (
-          <FadeIn>
-            <Markdown source={data} />
-          </FadeIn>
-        );
-      })}
+        {onSuccess((data) => {
+          return <Markdown source={data} />;
+        })}
 
-      {onFail((error) => {
-        return (
-          <FadeIn>
+        {onFail((error) => {
+          return (
             <CenteredContainer>
               <Text color="var(--c-negative)" align="center">
                 {`${error} ☹️`}
               </Text>
             </CenteredContainer>
-          </FadeIn>
-        );
-      })}
+          );
+        })}
+      </FadeIn>
     </>
   );
 };
