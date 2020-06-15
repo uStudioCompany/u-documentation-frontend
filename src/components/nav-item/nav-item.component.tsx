@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import Flex from 'ustudio-ui/components/Flex';
 import Text from 'ustudio-ui/components/Text';
@@ -13,15 +13,10 @@ import Styled from './nav-item.styles';
 import type { Node } from '../../types';
 
 export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: string; isRoot?: true }) => {
-  const [folder] = useState([] as Node[]);
-
   const path = `${prevPath ? `${prevPath}/` : ''}${node.name}`;
 
-  const getFolder = async (): Promise<Node[]> => {
-    if (!folder.length) {
-      return getEntries(path);
-    }
-    return [];
+  const getFolder = (): Promise<Node[]> => {
+    return getEntries(path);
   };
 
   const { sendRequest, onSuccess, onFail, isPending } = useRequest(getFolder);

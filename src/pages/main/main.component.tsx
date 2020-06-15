@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useRequest } from 'honks';
 
 import Flex from 'ustudio-ui/components/Flex';
 import Text from 'ustudio-ui/components/Text';
 import Spinner from 'ustudio-ui/components/Spinner';
 
-import { useRequest } from 'honks';
 import { Markdown } from '../../components/markdown';
 import { CenteredContainer } from '../../components/centered-container';
 import { FadeIn } from '../../components/fade-in';

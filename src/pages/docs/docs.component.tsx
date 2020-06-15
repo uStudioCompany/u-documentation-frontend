@@ -19,7 +19,7 @@ import { getMarkdownDocument } from './docs.module';
 export const DocsPage: React.FC = () => {
   const { path, docName } = useParams();
 
-  const getSource = async (): Promise<string> => {
+  const getSource = (): Promise<string> => {
     return getMarkdownDocument({
       path: encodePath(path),
       docName,

@@ -44,7 +44,7 @@ export const CSV: React.FC<CSVProps> = ({ href, title }) => {
     }
   }, [href]);
 
-  const getCsvSource = async (): Promise<string> => {
+  const getCsvSource = (): Promise<string> => {
     return getCsvDocument(href);
   };
 

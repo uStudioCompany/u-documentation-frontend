@@ -7,6 +7,7 @@ import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
 
 import { useRequest } from 'honks';
+
 import { parseDocPath } from '../../utils';
 import { FadeIn } from '../fade-in';
 
@@ -14,13 +15,13 @@ import { getJsonSchemaDocument } from './json-schema.module';
 import type { SchemaProps } from './json-schema.types';
 
 export const JsonSchema: React.FC<SchemaProps> = ({ href }) => {
-  const getJsonSchemaSource = async (): Promise<string> => {
+  const getJsonSchemaSource = (): Promise<string> => {
     return getJsonSchemaDocument(href);
   };
 
   const { sendRequest, onSuccess, onFail, onPending } = useRequest(getJsonSchemaSource);
 
-  useEffect(() => {
+  useEffect(function getJsonSchemaDocumentOnMount() {
     sendRequest();
   }, []);
 
@@ -29,6 +30,7 @@ export const JsonSchema: React.FC<SchemaProps> = ({ href }) => {
       {onPending(() => (
         <Spinner delay={1000} appearance={{ size: 16 }} />
       ))}
+
       {onFail(() => {
         return (
           <FadeIn>
@@ -41,6 +43,7 @@ export const JsonSchema: React.FC<SchemaProps> = ({ href }) => {
           </FadeIn>
         );
       })}
+
       {onSuccess((data) => {
         return (
           <FadeIn>
