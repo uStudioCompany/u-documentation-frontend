@@ -2,7 +2,7 @@ import PapaParse from 'papaparse';
 import axios from 'axios';
 
 import { getCsvDocumentConfig } from '../../lib';
-import { getDocPropsFromHref } from '../../utils';
+import { parseDocPath } from '../../utils';
 
 export const getQueryFromHref = (href: string): string => {
   const matchedPath = href.match(/(?:\.csv).+$/) as [string] | null;
@@ -105,7 +105,7 @@ export const csvFilter = ({ csvString, queryString = '' }: { csvString: string; 
 export const getCsvDocument = async (href: string): Promise<string> => {
   const {
     data: { content: source },
-  } = await axios(getCsvDocumentConfig(getDocPropsFromHref(href, 'csv')));
+  } = await axios(getCsvDocumentConfig(parseDocPath(href, 'csv')));
 
   return csvFilter({ csvString: source, queryString: getQueryFromHref(href) });
 };

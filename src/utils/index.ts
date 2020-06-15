@@ -1,3 +1,3 @@
-export * from './encodePath';
-export * from './sortDocsByName';
-export * from './getDocPropsFromHref';
+export * from './encode-path';
+export * from './sort-docs-by-name';
+export * from './parse-doc-path';

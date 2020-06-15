@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { JsonSchemaParser } from 'u-json-docs';
-import { JSONSchema7 } from 'json-schema';
+import type { JSONSchema7 } from 'json-schema';
 
 import Flex from 'ustudio-ui/components/Flex';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
 
-import { getDocPropsFromHref } from '../../utils';
+import { parseDocPath } from '../../utils';
 import { FadeIn } from '../fade-in';
 
 import { getJsonSchemaDocument } from './json-schema.module';
@@ -22,9 +22,9 @@ export const JsonSchema: React.FC<SchemaProps> = ({ href, title }) => {
     try {
       setLoading(true);
 
-      const jsonScheme = await getJsonSchemaDocument(href);
+      const jsonSchema = await getJsonSchemaDocument(href);
 
-      setSource(jsonScheme);
+      setSource(jsonSchema);
     } catch ({ message: errorMessage }) {
       setError(errorMessage);
     } finally {
@@ -32,7 +32,7 @@ export const JsonSchema: React.FC<SchemaProps> = ({ href, title }) => {
     }
   }, []);
 
-  useEffect(function getCsvDocumentOnMount() {
+  useEffect(function getJsonSchemaDocumentOnMount() {
     getJsonSchemaSource();
   }, []);
 
@@ -44,7 +44,7 @@ export const JsonSchema: React.FC<SchemaProps> = ({ href, title }) => {
     return (
       <FadeIn>
         <Text color="var(--c-negative)">
-          This schema was unable to load{' '}
+          This JSON Schema was unable to load{' '}
           <span role="img" aria-label=":(">
             ☹️
           </span>
@@ -56,7 +56,7 @@ export const JsonSchema: React.FC<SchemaProps> = ({ href, title }) => {
   return (
     <FadeIn>
       <Flex direction="column" margin={{ top: 'regular' }}>
-        <JsonSchemaParser schema={source} title={getDocPropsFromHref(href, 'schema.json').docName} />
+        <JsonSchemaParser schema={source} title={parseDocPath(href, 'schema.json').docName} />
       </Flex>
     </FadeIn>
   );
