@@ -59,7 +59,7 @@ export const DocsPage: React.FC = () => {
           return (
             <CenteredContainer>
               <Text color="var(--c-negative)" align="center">
-                {`${error} ☹️`}
+                {`${error.message} ☹️`}
               </Text>
             </CenteredContainer>
           );
