@@ -22,38 +22,36 @@ export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: str
   }, []);
 
   return (
-    <>
-      <FadeIn>
-        {onSuccess((data) => {
-          return (
-            <div>
-              {isRoot ? (
-                <NavList tree={data} prevPath={path} />
-              ) : (
-                <Flex direction="column" margin={{ top: 'medium' }}>
-                  <Flex alignment={{ vertical: 'center' }}>
-                    <Styled.Folder />
+    <FadeIn>
+      {onSuccess((data) => {
+        return (
+          <div>
+            {isRoot ? (
+              <NavList tree={data} prevPath={path} />
+            ) : (
+              <Flex direction="column" margin={{ top: 'medium' }}>
+                <Flex alignment={{ vertical: 'center' }}>
+                  <Styled.Folder />
 
-                    <Text>{node.name}</Text>
-                  </Flex>
-
-                  <Styled.NavList direction="column">
-                    <NavList tree={data} prevPath={path} />
-                  </Styled.NavList>
+                  <Text>{node.name}</Text>
                 </Flex>
-              )}
-            </div>
-          );
-        })}
 
-        {onFail((error) => {
-          return (
-            <Text color="var(--c-negative)" align="center">
-              {`${error} ☹️`}
-            </Text>
-          );
-        })}
-      </FadeIn>
-    </>
+                <Styled.NavList direction="column">
+                  <NavList tree={data} prevPath={path} />
+                </Styled.NavList>
+              </Flex>
+            )}
+          </div>
+        );
+      })}
+
+      {onFail((error) => {
+        return (
+          <Text color="var(--c-negative)" align="center">
+            {`${error} ☹️`}
+          </Text>
+        );
+      })}
+    </FadeIn>
   );
 };
