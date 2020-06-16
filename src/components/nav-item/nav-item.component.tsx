@@ -15,7 +15,7 @@ import type { Node } from '../../types';
 export const NavItem = ({ node, prevPath, isRoot }: { node: Node; prevPath?: string; isRoot?: true }) => {
   const path = `${prevPath ? `${prevPath}/` : ''}${node.name}`;
 
-  const { sendRequest, onSuccess, onFail, isPending } = useRequest(() => getEntries(path));
+  const { sendRequest, onSuccess, onFail } = useRequest(() => getEntries(path));
 
   useEffect(function getFolderOnMount() {
     sendRequest();
