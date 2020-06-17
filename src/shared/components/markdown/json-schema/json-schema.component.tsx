@@ -1,15 +1,14 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 
+import axios from 'axios';
 import { JsonSchemaParser } from 'u-json-docs';
+import { useRequest } from 'honks';
 
 import Flex from 'ustudio-ui/components/Flex';
 import Spinner from 'ustudio-ui/components/Spinner';
 import Text from 'ustudio-ui/components/Text';
 
-import { useRequest } from 'honks';
 import { useRequestConfig } from '../../../services/request-config';
-
 import { parseDocPath } from '../../../utils';
 import { FadeIn } from '../../fade-in';
 

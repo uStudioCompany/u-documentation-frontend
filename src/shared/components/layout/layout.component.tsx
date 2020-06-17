@@ -1,11 +1,14 @@
-import axios from 'axios';
 import React, { FC, useState, useEffect } from 'react';
+
+import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Link, useLocation } from 'react-router-dom';
 
 import useMediaQuery from 'ustudio-ui/hooks/use-media-query';
 import Flex from 'ustudio-ui/components/Flex';
-import { Node } from '../../entity';
+
+import type { Node } from '../../entity';
+import { sortDocsByName } from '../../utils';
 import { useAppConfig } from '../../services/app-config';
 import { useRequestConfig } from '../../services/request-config';
 
@@ -13,8 +16,6 @@ import { Aside } from './aside';
 import DrawerCloser from './drawer-closer';
 
 import Styled from './layout.styles';
-
-import { sortDocsByName } from '../../utils';
 
 export const Layout: FC = ({ children }) => {
   const [firstDocName, setFirstDocName] = useState('');
