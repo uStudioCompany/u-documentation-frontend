@@ -2,6 +2,8 @@ import React, { FC, createContext, useContext, useCallback } from 'react';
 
 import type { AxiosRequestConfig } from 'axios';
 
+import { useAppConfig } from '../app-config';
+
 import type { Document } from '../../entity';
 import type { RequestConfigProps } from './request-config.props';
 
@@ -15,14 +17,15 @@ export interface RequestConfigService {
 
 const RequestConfigContext = createContext<RequestConfigService | undefined>(undefined);
 
-const RequestConfig: FC<RequestConfigProps> = ({ children, repo, serviceUrl }) => {
-  const { owner, branch, docsFolder, name } = repo;
+const RequestConfig: FC<RequestConfigProps> = ({ children, serviceUrl }) => {
+  const { owner, branch, docsFolder, name } = useAppConfig().repo;
   const prependPath = useCallback((path?: string): string => (path ? `%2F${path}` : ''), []);
 
   const getMainMarkdownConfig = useCallback(
     (): AxiosRequestConfig => ({
       method: 'get',
-      url: `${serviceUrl}/entries/${owner}/${name}/${branch}/README.md`,
+      // Need a second slash before `README.md`
+      url: `${serviceUrl}/entries/${owner}/${name}/${branch}//README.md`,
     }),
     []
   );

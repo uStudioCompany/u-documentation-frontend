@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useRequest } from 'honks';
 
@@ -10,12 +10,13 @@ import Spinner from 'ustudio-ui/components/Spinner';
 import { Markdown } from '../../shared/components/markdown';
 import { CenteredContainer } from '../../shared/components/centered-container';
 import { FadeIn } from '../../shared/components/fade-in';
+import { useAppConfig } from '../../shared/services/app-config';
 
-import { name } from '../../../config.json';
 import { useRequestConfig } from '../../shared/services/request-config';
 import { Wrapper } from './wrapper';
 
-export const Main = () => {
+export const Main: FC = () => {
+  const { name } = useAppConfig();
   const { getMainMarkdownConfig } = useRequestConfig();
 
   const { sendRequest, onSuccess, onFail, onPending } = useRequest(
@@ -28,7 +29,7 @@ export const Main = () => {
     }
   );
 
-  useEffect(function getSourceDataOnMount() {
+  useEffect(() => {
     sendRequest();
   }, []);
 

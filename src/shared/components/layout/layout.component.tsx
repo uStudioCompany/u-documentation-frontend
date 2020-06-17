@@ -6,21 +6,23 @@ import { Link, useLocation } from 'react-router-dom';
 import useMediaQuery from 'ustudio-ui/hooks/use-media-query';
 import Flex from 'ustudio-ui/components/Flex';
 import { Node } from '../../entity';
+import { useAppConfig } from '../../services/app-config';
 import { useRequestConfig } from '../../services/request-config';
 
 import { Aside } from './aside';
 import DrawerState from './drawer-state';
-import { LayoutProps } from './layout.props';
 
 import Styled from './layout.styles';
 
 import { sortDocsByName } from '../../utils';
 
-export const Layout: FC<LayoutProps> = ({ children, name, repo }) => {
+export const Layout: FC = ({ children }) => {
   const [firstDocName, setFirstDocName] = useState('');
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   const { pathname } = useLocation();
+
+  const { name, repo } = useAppConfig();
   const { getEntriesConfig } = useRequestConfig();
 
   const isDocPage = pathname.includes(repo.docsFolder);
