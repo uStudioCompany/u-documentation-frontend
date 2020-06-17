@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 import { useRequest } from 'honks';
 
 import Flex from 'ustudio-ui/components/Flex';
