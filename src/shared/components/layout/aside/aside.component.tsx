@@ -2,8 +2,7 @@ import React from 'react';
 
 import Flex from 'ustudio-ui/components/Flex';
 import Text from 'ustudio-ui/components/Text';
-
-import { repo } from '../../../../../config.json';
+import { useAppConfig } from '../../../services/app-config';
 
 import { NavItem } from './nav-item';
 
@@ -19,6 +18,8 @@ export const Aside = ({
   isDrawerOpen: boolean;
   isMd?: boolean;
 }) => {
+  const { repo } = useAppConfig();
+
   if (!isMd) {
     return (
       <Styled.Drawer isOpen={isDrawerOpen} onChange={() => setDrawerOpen(false)} showOverlay>
