@@ -12,7 +12,7 @@
     "plugin:react-hooks/recommended",
     "plugin:promise/recommended",
     "plugin:sonarjs/recommended",
-    "prettier"
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -30,10 +30,12 @@
     }
   },
   "rules": {
+    "comma-dangle": "off",
     "import/extensions": "off",
     "import/no-cycle": "warn",
     "import/prefer-default-export": "off",
     "no-console": "warn",
+    "react/jsx-one-expression-per-line": "warn",
     "react/jsx-filename-extension": [
       1,
       {
