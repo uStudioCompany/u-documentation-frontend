@@ -10,7 +10,7 @@ import { useAppConfig } from '../../services/app-config';
 import { useRequestConfig } from '../../services/request-config';
 
 import { Aside } from './aside';
-import DrawerState from './drawer-state';
+import DrawerCloser from './drawer-closer';
 
 import Styled from './layout.styles';
 
@@ -46,7 +46,7 @@ export const Layout: FC = ({ children }) => {
     <>
       <Helmet titleTemplate={`${name} | %s`} defaultTitle={name} />
 
-      <DrawerState close={() => setDrawerOpen(false)}>
+      <DrawerCloser close={() => setDrawerOpen(false)}>
         <Styled.Layout>
           <Styled.Header>
             <Styled.LogoLink to="/">
@@ -82,7 +82,7 @@ export const Layout: FC = ({ children }) => {
             ❤️
           </Styled.Footer>
         </Styled.Layout>
-      </DrawerState>
+      </DrawerCloser>
     </>
   );
 };

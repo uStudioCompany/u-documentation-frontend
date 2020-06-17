@@ -1,8 +1,8 @@
 import axios from 'axios';
 import PapaParse from 'papaparse';
 import React, { FC, createContext, useContext, useMemo, useCallback } from 'react';
-import { useRequestConfig } from '../../../../services/request-config';
-import { parseDocPath } from '../../../../utils';
+import { useRequestConfig } from '../../../services/request-config';
+import { parseDocPath } from '../../../utils';
 import type { CsvParserProps } from './csv-parser.props';
 
 export interface CsvParserService {

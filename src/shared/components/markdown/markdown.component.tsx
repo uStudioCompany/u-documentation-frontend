@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import CsvParser from './csv/csv-parser';
+import CsvParser from './csv-parser';
 
 import { renderers } from './renderers.module';
 import { MarkdownProps } from './markdown.props';

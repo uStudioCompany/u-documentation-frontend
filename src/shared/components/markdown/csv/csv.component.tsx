@@ -10,7 +10,7 @@ import { CsvToHtmlTable } from 'react-csv-to-table';
 import { useRequest } from 'honks';
 
 import { FadeIn } from '../../fade-in';
-import { useCsvParser } from './csv-parser';
+import { useCsvParser } from '../csv-parser';
 
 import type { CSVProps } from './csv.props';
 
