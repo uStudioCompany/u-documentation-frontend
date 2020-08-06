@@ -9,7 +9,7 @@ import Text from 'ustudio-ui/components/Text';
 import { CsvToHtmlTable } from 'react-csv-to-table';
 import { useRequest } from 'honks';
 
-import '../../../styles/csv.module.scss';
+import '../../../styles/table.styles.scss';
 import { FadeIn } from '../../fade-in';
 import { useCsvParser } from '../csv-parser';
 
