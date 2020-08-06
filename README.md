@@ -32,3 +32,31 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+##Usage
+
+###Navigation
+In the left sidebar is navigation in application that builds from file structure, existing in your `docsFolder`.
+All nested folders are opened by default.
+
+###Path
+To create a link to file that are in your repo you need to create a path from root, for example `[linkName](/data-set/category.json)`
+
+###CSV Tables
+You need to use CSV tables in your markdown file.
+Just create link to file in your repo with extension `.csv`,for example`[](/data-set/PROZORRO-QuestionGroups.csv "Title")`.
+You also can pick data you need from this table using special syntax like query params.
+For example, if you need only 1,2 rows and 1-3 columns from the table `[](/data-set/PROZORRO-QuestionGroups.csv?r=1,2&c=1-3 "Question Groups")`.
+
+###JSON Schemas
+To use JSON Schema you just need to create the file with extension `.schema.json` in your repo and use it in your markdown file as link to file with your JSON schema, for example `[](/data-set/category.schema.json)`
+
+###Dropdowns
+If you need dropdown, you can use links like syntax to create it.
+You just need to use link with `"$"`.
+
+Example for code snippet in dropdown `[ { name: "12", age: 12 } ]($json "show code")`,
+where `{ name: "12", age: 12 }` is your code, `$json` is your file extension with `$`, `"show code"` is dropdown title.
+
+Example for text in dropdown `[## some text]($ "show text")`.
+
