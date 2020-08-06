@@ -59,6 +59,7 @@ export const renderers: Renderers = {
     if (href?.[0] === '$') {
       const parsedType = href.slice(1);
 
+      //Incorrect type MarkdownAbstractSyntaxTree in "react-markdown"
       // @ts-ignore
       const value = children?.[0]?.props?.children || {};
 
