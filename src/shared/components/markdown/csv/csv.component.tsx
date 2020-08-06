@@ -9,12 +9,11 @@ import Text from 'ustudio-ui/components/Text';
 import { CsvToHtmlTable } from 'react-csv-to-table';
 import { useRequest } from 'honks';
 
+import '../../../styles/csv.module.scss';
 import { FadeIn } from '../../fade-in';
 import { useCsvParser } from '../csv-parser';
 
 import type { CSVProps } from './csv.props';
-
-import './csv.module.scss';
 
 export const CSV: React.FC<CSVProps> = ({ href, title }) => {
   const [meta, setMeta] = useState<{ rows?: string; cols?: string } | null>(null);
