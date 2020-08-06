@@ -1,6 +1,5 @@
 import React from 'react';
 import { Renderers, MarkdownAbstractSyntaxTree } from 'react-markdown';
-import Code from 'react-syntax-highlighter/dist/cjs/prism';
 
 import { Code } from '../code';
 import Styled from './markdown.styles';
