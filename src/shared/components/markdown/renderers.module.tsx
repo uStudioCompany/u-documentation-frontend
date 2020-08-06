@@ -1,6 +1,8 @@
 import React from 'react';
 import { Renderers, MarkdownAbstractSyntaxTree } from 'react-markdown';
 
+import '../../styles/table.styles.scss';
+
 import { Code } from '../code';
 import Styled from './markdown.styles';
 
