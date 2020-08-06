@@ -56,7 +56,7 @@ export const renderers: Renderers = {
       return <Json href={href} />;
     }
 
-    if (href?.[0] === '$') {
+    if (href.startsWith('$')) {
       const parsedType = href.slice(1);
 
       //Incorrect type MarkdownAbstractSyntaxTree in "react-markdown"
