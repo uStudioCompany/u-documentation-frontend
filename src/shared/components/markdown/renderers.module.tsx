@@ -1,5 +1,6 @@
 import React from 'react';
-import { Renderers } from 'react-markdown';
+import { Renderers, MarkdownAbstractSyntaxTree } from 'react-markdown';
+import Code from 'react-syntax-highlighter/dist/cjs/prism';
 
 import { Code } from '../code';
 import Styled from './markdown.styles';
@@ -11,17 +12,27 @@ import { Json } from '../json';
 export const renderers: Renderers = {
   thematicBreak: Styled.Divider,
   root: Styled.Root,
-  heading: ({ children, level }) => (
-    <Styled.Heading
-      as={`h${level}` as 'h1'}
-      id={children[0]?.props?.children
-        .split(' ')
-        .reduce((id: string, word: string) => `${id ? `${id}-` : ''}${word}`, ``)
-        .toLowerCase()}
-    >
-      {children}
-    </Styled.Heading>
-  ),
+  heading: ({ children, level }) => {
+    const getRecursiveChildren = (children: MarkdownAbstractSyntaxTree): string => {
+      if (Array.isArray(children)) {
+        return getRecursiveChildren(children[0]?.props?.children);
+      }
+
+      return children as unknown as string;
+    };
+
+    return (
+      <Styled.Heading
+        id={getRecursiveChildren(children)
+          ?.split(' ')
+          ?.reduce((id: string, word: string) => `${id ? `${id}-` : ''}${word}`, ``)
+          ?.toLowerCase()}
+        as={`h${level}` as 'h1'}
+      >
+        {children}
+      </Styled.Heading>
+    );
+  },
   blockquote: Styled.Quote,
   paragraph: Styled.Paragraph,
   list: ({ depth, children, ordered }) => (
